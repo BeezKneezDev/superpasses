@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -16,7 +17,9 @@
   "author": "Byron Murray",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1"
+    "dotenv": "^16.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^6.5.2"
   },
   "bugs": {
     "url": "https://github.com/BeezKneezDev/proshop/issues"
