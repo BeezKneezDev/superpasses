@@ -1,4 +1,36 @@
 {
-  "workbench.settings.editor": "json",
-  "workbench.settings.useSplitJSON": true
+  "extensions.ignoreRecommendations": false,
+  "explorer.confirmDelete": false,
+ 
+  "javascript.format.enable": false,
+  "prettier.singleQuote": true,
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "editor.fontSize": 12,
+ 
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "editor.formatOnSave": true,
+ 
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "liveServer.settings.donotVerifyTags": true,
+  "kite.showWelcomeNotificationOnStartup": false,
+  "window.zoomLevel": 2,
+  "editor.minimap.enabled": false,
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#303030",
+    "editorLineNumber.foreground": "#404040"
+  },
+  "workbench.statusBar.visible": false,
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
+  "lit-html.tags": [
+    "html"
+  ]
 }

@@ -1,14 +1,26 @@
-import { request, success, fail } from "../reducers/productReducers"
 import axios from "axios"
- 
-export const listProducts = () => async (dispatch) => {
+import { products_request, products_success, products_fail } from "../reducers/productReducers/productsSlice"
+import { product_details_request, product_details_success, product_details_fail } from "../reducers/productReducers/productDetailsSlice"
+
+
+export const listProductDetails = (id) => async (dispatch) => {
   try {
-    dispatch(request())
-    const { data } = await axios.get('/api/products')
-    dispatch(success(data))
- 
+    dispatch(product_details_request())
+    const { data } = await axios.get(`/api/products/${id}`)
+    dispatch(product_details_success(data))
   } catch (err) {
     const error = err.response && err.response.data.message ? err.response.data.message : err.message
-    dispatch(fail(error))
+    dispatch(product_details_fail(error))
+  }
+}
+
+export const listProducts = () => async (dispatch) => {
+  try {
+    dispatch(products_request())
+    const { data } = await axios.get('/api/products')
+    dispatch(products_success(data))
+  } catch (err) {
+    const error = err.response && err.response.data.message ? err.response.data.message : err.message
+    dispatch(products_fail(error))
   }
 }
