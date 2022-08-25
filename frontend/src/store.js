@@ -1,14 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk'
+import { configureStore } from '@reduxjs/toolkit'
+import cartReducer from './reducers/cartReducers/cartSlice'
+import userLoginReducer from './reducers/userReducers/userLoginSlice'
+import userRegisterReduducer from './reducers/userReducers/userRegisterSlice'
 import productsReducer from './reducers/productReducers/productsSlice'
 import productDetailReducer from './reducers/productReducers/productDetailsSlice'
-import cartReducer from './reducers/cartReducers/cartSlice'
 
 const store = configureStore({
   reducer: {
+    cart: cartReducer,
+    userLogin: userLoginReducer,
     productsList: productsReducer,
-    productDetails: productDetailReducer,
-    cart: cartReducer
+    userRegister: userRegisterReduducer,
+    productDetails: productDetailReducer
   },
   preloadedState: {},
   middleware: [thunk]
