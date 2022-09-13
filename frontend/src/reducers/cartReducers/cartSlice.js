@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-// const shippingAddressFromStorage = localStorage.getItem('shippingAddress') ? JSON.parse(localStorage.getItem('shippingAddress')) : {}
-
 export const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
-      : []
-    // shippingAddress: shippingAddressFromStorage
+      : [],
+    shippingAddress: localStorage.getItem('shippingAddress')
+      ? JSON.parse(localStorage.getItem('shippingAddress'))
+      : {}
   },
   reducers: {
     cart_addItem: (state, action) => {
@@ -37,21 +37,21 @@ export const cartSlice = createSlice({
           (cartItem) => cartItem.product !== action.payload
         )
       }
+    },
+    cart_save_shipping_address: (state, action) => {
+      return { ...state, shippingAddress: action.payload }
+    },
+    cart_save_payment_method: (state, action) => {
+      return { ...state, paymentMethod: action.payload }
     }
-    // cart_save_shipping_address: (state, action) => {
-    //   return { ...state, shippingAddress: action.payload }
-    // },
-    // cart_save_payment_method: (state, action) => {
-    //   return {...state, paymentMethod : action.payload}
-    // }
   }
 })
 
 export const {
   cart_addItem,
-  cart_removeItem
-  // cart_save_shipping_address,
-  // cart_save_payment_method
+  cart_removeItem,
+  cart_save_shipping_address,
+  cart_save_payment_method
 } = cartSlice.actions
 
 export default cartSlice.reducer
