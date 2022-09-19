@@ -19,6 +19,11 @@ import {
   product_create_request,
   product_create_success
 } from '../reducers/productReducers/productCreateSlice'
+import {
+  product_update_fail,
+  product_update_request,
+  product_update_success
+} from '../reducers/productReducers/productUpdateSlice'
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
@@ -97,5 +102,35 @@ export const createProduct = () => async (dispatch, getState) => {
         ? err.response.data.message
         : err.message
     dispatch(product_create_fail(error))
+  }
+}
+
+export const updateProduct = (product) => async (dispatch, getState) => {
+  try {
+    dispatch(product_update_request())
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    const { data } = await axios.put(
+      `/api/products/${product._id}`,
+      product,
+      config
+    )
+    dispatch(product_update_success(data))
+  } catch (err) {
+    const error =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(product_update_fail(error))
   }
 }
