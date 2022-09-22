@@ -1,11 +1,11 @@
 import express from 'express'
 import { protect, admin } from '../middleware/authMiddleware.js'
 import {
-  addOrderItems,
-  getOrderById,
-  updateOrderToPaid,
-  getMyOrders,
   getOrders,
+  getMyOrders,
+  getOrderById,
+  addOrderItems,
+  updateOrderToPaid,
   updateOrderToDelivered
 } from '../controllers/orderController.js'
 
