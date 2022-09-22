@@ -71,9 +71,9 @@ const OrderScreen = () => {
     )
   }
 
-  // const deliverHandler = () => {
-  //   dispatch(deliverOrder(order))
-  // }
+  const deliverHandler = () => {
+    dispatch(deliverOrder(order))
+  }
 
   return loading ? (
     <Loader />
@@ -206,7 +206,7 @@ const OrderScreen = () => {
                   )}
                 </ListGroup.Item>
               )}
-              {/* {loadingDeliver && <Loader />}
+              {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
                 order.isPaid &&
@@ -221,7 +221,7 @@ const OrderScreen = () => {
                       Mark as delivered
                     </Button>
                   </ListGroup.Item>
-                )} */}
+                )}
             </ListGroup>
           </Card>
         </Col>
