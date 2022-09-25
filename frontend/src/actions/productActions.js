@@ -24,6 +24,16 @@ import {
   product_update_request,
   product_update_success
 } from '../reducers/productReducers/productUpdateSlice'
+import {
+  product_create_review_fail,
+  product_create_review_request,
+  product_create_review_success
+} from '../reducers/productReducers/productReviewCreateSlice'
+import {
+  product_top_fail,
+  product_top_request,
+  product_top_success
+} from '../reducers/productReducers/productTopRatedSlice'
 
 export const listProductDetails = (id) => async (dispatch) => {
   try {
@@ -134,3 +144,46 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     dispatch(product_update_fail(error))
   }
 }
+
+export const createProductReview =
+  (productId, review) => async (dispatch, getState) => {
+    try {
+      dispatch(product_create_review_request())
+
+      const {
+        userLogin: { userInfo }
+      } = getState()
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo.token}`
+        }
+      }
+
+      await axios.post(`/api/products/${productId}/reviews`, review, config)
+      dispatch(product_create_review_success())
+    } catch (err) {
+      const error =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(product_create_review_fail(error))
+    }
+  }
+
+export const listTopProducts =
+  (keyword = '', pageNumber = '') =>
+  async (dispatch) => {
+    try {
+      dispatch(product_top_request())
+      const { data } = await axios.get(`/api/products/top`)
+      dispatch(product_top_success(data))
+    } catch (err) {
+      const error =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(product_top_fail(error))
+    }
+  }
