@@ -56,10 +56,10 @@ const ProductListScreen = () => {
     dispatch,
     navigate,
     userInfo,
+    pageNumber,
     successDelete,
     successCreate,
-    createdProduct,
-    pageNumber
+    createdProduct
   ])
 
   const deleteHandler = (id) => {

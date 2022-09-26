@@ -25,11 +25,6 @@ import {
   product_update_success
 } from '../reducers/productReducers/productUpdateSlice'
 import {
-  product_create_review_fail,
-  product_create_review_request,
-  product_create_review_success
-} from '../reducers/productReducers/productReviewCreateSlice'
-import {
   product_top_fail,
   product_top_request,
   product_top_success
@@ -49,19 +44,23 @@ export const listProductDetails = (id) => async (dispatch) => {
   }
 }
 
-export const listProducts = () => async (dispatch) => {
-  try {
-    dispatch(products_request())
-    const { data } = await axios.get('/api/products')
-    dispatch(products_success(data))
-  } catch (err) {
-    const error =
-      err.response && err.response.data.message
-        ? err.response.data.message
-        : err.message
-    dispatch(products_fail(error))
+export const listProducts =
+  (keyword = '', pageNumber = '') =>
+  async (dispatch) => {
+    try {
+      dispatch(products_request())
+      const { data } = await axios.get(
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+      )
+      dispatch(products_success(data))
+    } catch (err) {
+      const error =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(products_fail(error))
+    }
   }
-}
 
 export const deleteProduct = (id) => async (dispatch, getState) => {
   try {
@@ -144,33 +143,6 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     dispatch(product_update_fail(error))
   }
 }
-
-export const createProductReview =
-  (productId, review) => async (dispatch, getState) => {
-    try {
-      dispatch(product_create_review_request())
-
-      const {
-        userLogin: { userInfo }
-      } = getState()
-
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${userInfo.token}`
-        }
-      }
-
-      await axios.post(`/api/products/${productId}/reviews`, review, config)
-      dispatch(product_create_review_success())
-    } catch (err) {
-      const error =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
-      dispatch(product_create_review_fail(error))
-    }
-  }
 
 export const listTopProducts =
   (keyword = '', pageNumber = '') =>

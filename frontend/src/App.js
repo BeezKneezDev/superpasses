@@ -18,6 +18,7 @@ import PlaceOrder from './screens/PlaceOrderScreen'
 import EditProduct from './screens/ProductEditScreen'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Helmet } from 'react-helmet'
 
 const App = () => {
   return (
@@ -28,6 +29,11 @@ const App = () => {
           <Routes>
             <Route exact path='/' element={<Home />} />
             <Route path='/search/:keyword' element={<Home />} />
+            <Route path='/page/:pageNumber' element={<Home />} />
+            <Route
+              path='/search/:keyword/page/:pageNumber'
+              element={<Home />}
+            />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
             <Route path='/shipping' element={<Shipping />} />
@@ -44,6 +50,7 @@ const App = () => {
             <Route path='/admin/users' element={<Users />} />
             <Route path='/admin/user/:id/edit' element={<EditUser />} />
             <Route path='/admin/products' element={<Products />} />
+            <Route path='/admin/products/:pageNumber' element={<Products />} />
             <Route path='/admin/product/:id/edit' element={<EditProduct />} />
           </Routes>
         </Container>
