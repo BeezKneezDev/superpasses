@@ -8,6 +8,7 @@ import userUpdateSlice from './reducers/userReducers/userUpdateSlice'
 import userLoginReducer from './reducers/userReducers/userLoginSlice'
 import userDetailsReducer from './reducers/userReducers/userDetailsSlice'
 import userRegisterReduducer from './reducers/userReducers/userRegisterSlice'
+import userUpdateProfileReduducer from './reducers/userReducers/userUpdateProfileSlice'
 
 import productsReducer from './reducers/productReducers/productsSlice'
 import productCreateReducer from './reducers/productReducers/productCreateSlice'
@@ -34,6 +35,7 @@ const store = configureStore({
     userUpdate: userUpdateSlice,
     userDetails: userDetailsReducer,
     userRegister: userRegisterReduducer,
+    userUpdateProfile: userUpdateProfileReduducer,
 
     productList: productsReducer,
     productsList: productsReducer,

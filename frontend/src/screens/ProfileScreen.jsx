@@ -4,9 +4,10 @@ import { Form, Button, Row, Col, Table } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import { LinkContainer } from 'react-router-bootstrap'
+import { update_profile_reset } from '../reducers/userReducers/userUpdateProfileSlice'
 
 const ProfileScreen = () => {
   const [name, setName] = useState('')
@@ -14,6 +15,7 @@ const ProfileScreen = () => {
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
+  const [updateMessage, setUpdateMessage] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -22,6 +24,9 @@ const ProfileScreen = () => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
+
+  const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
+  const { success } = userUpdateProfile
 
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
@@ -33,7 +38,8 @@ const ProfileScreen = () => {
     if (!userInfo) {
       navigate('/login')
     } else {
-      if (!user || !user.name) {
+      if (!user || !user.name || success) {
+        dispatch(update_profile_reset())
         dispatch(getUserDetails('profile'))
         dispatch(listMyOrders())
       } else {
@@ -41,11 +47,16 @@ const ProfileScreen = () => {
         setEmail(user.email)
       }
     }
-  }, [dispatch, navigate, userInfo, user])
+  }, [dispatch, userInfo, navigate, user, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    // update profile
+    if (password !== confirmPassword) {
+      setMessage('Password do not match')
+    } else {
+      dispatch(updateUserProfile({ id: user._id, name, email, password }))
+      setUpdateMessage(true)
+    }
   }
 
   return (
@@ -54,6 +65,9 @@ const ProfileScreen = () => {
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
+        {!error && updateMessage && (
+          <Message variant='success'>Updated!</Message>
+        )}
         {loading && <Loader />}
         <Form onSubmit={submitHandler}>
           <Form.Group controlId='name'>
@@ -81,7 +95,7 @@ const ProfileScreen = () => {
             <Form.Control
               type='password'
               placeholder='Enter password'
-              value={password}
+              //value={password}
               onChange={(e) => setPassword(e.target.value)}
             ></Form.Control>
           </Form.Group>

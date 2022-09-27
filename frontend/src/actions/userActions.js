@@ -33,6 +33,11 @@ import {
   user_update_request,
   user_update_success
 } from '../reducers/userReducers/userUpdateSlice'
+import {
+  update_profile_fail,
+  update_profile_request,
+  update_profile_success
+} from '../reducers/userReducers/userUpdateProfileSlice'
 
 export const login = (email, password) => async (dispatch) => {
   try {
@@ -196,6 +201,36 @@ export const updateUser = (user) => async (dispatch, getState) => {
         ? err.response.data.message
         : err.message
     dispatch(user_update_fail(error))
+  }
+}
+
+export const updateUserProfile = (user) => async (dispatch, getState) => {
+  try {
+    dispatch(update_profile_request())
+
+    const {
+      userLogin: { userInfo }
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.token}`
+      }
+    }
+
+    const { data } = await axios.put(`/api/users/profile`, user, config)
+
+    dispatch(update_profile_success(data))
+    dispatch(user_login_success(data))
+
+    localStorage.setItem('userInfo', JSON.stringify(data))
+  } catch (err) {
+    const error =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(update_profile_fail(error))
   }
 }
 
