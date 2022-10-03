@@ -19,41 +19,42 @@ import EditProduct from './screens/ProductEditScreen'
 
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
+import Navbar from './components/Navbar'
+
+import Passes from './screens/PassesScreen'
 
 const App = () => {
   return (
     <BrowserRouter>
-      <Header />
-      <main className='py-3'>
-        <Container>
-          <Routes>
-            <Route exact path='/' element={<Home />} />
-            <Route path='/search/:keyword' element={<Home />} />
-            <Route path='/page/:pageNumber' element={<Home />} />
-            <Route
-              path='/search/:keyword/page/:pageNumber'
-              element={<Home />}
-            />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Register />} />
-            <Route path='/shipping' element={<Shipping />} />
-            <Route path='/payment' element={<Payment />} />
-            <Route path='/placeorder' element={<PlaceOrder />} />
-            <Route path='/order/:id' element={<Order />} />
-            <Route path='/product/:id' element={<Product />} />
-            <Route path='/profile' element={<Profile />} />
-            <Route path='/cart'>
-              <Route path=':id' element={<Cart />} />
-              <Route path='' element={<Cart />} />
-            </Route>
-            <Route path='/admin/orders' element={<Orders />} />
-            <Route path='/admin/users' element={<Users />} />
-            <Route path='/admin/user/:id/edit' element={<EditUser />} />
-            <Route path='/admin/products' element={<Products />} />
-            <Route path='/admin/products/:pageNumber' element={<Products />} />
-            <Route path='/admin/product/:id/edit' element={<EditProduct />} />
-          </Routes>
-        </Container>
+      <Navbar />
+      <main className=''>
+        <Routes>
+          <Route exact path='/' element={<Home />} />
+          <Route path='/search/:keyword' element={<Home />} />
+          <Route path='/page/:pageNumber' element={<Home />} />
+          <Route path='/search/:keyword/page/:pageNumber' element={<Home />} />
+
+          <Route path='/passes' element={<Passes />} />
+
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/shipping' element={<Shipping />} />
+          <Route path='/payment' element={<Payment />} />
+          <Route path='/placeorder' element={<PlaceOrder />} />
+          <Route path='/order/:id' element={<Order />} />
+          <Route path='/product/:id' element={<Product />} />
+          <Route path='/profile' element={<Profile />} />
+          <Route path='/cart'>
+            <Route path=':id' element={<Cart />} />
+            <Route path='' element={<Cart />} />
+          </Route>
+          <Route path='/admin/orders' element={<Orders />} />
+          <Route path='/admin/users' element={<Users />} />
+          <Route path='/admin/user/:id/edit' element={<EditUser />} />
+          <Route path='/admin/products' element={<Products />} />
+          <Route path='/admin/products/:pageNumber' element={<Products />} />
+          <Route path='/admin/product/:id/edit' element={<EditProduct />} />
+        </Routes>
       </main>
       <Footer />
     </BrowserRouter>

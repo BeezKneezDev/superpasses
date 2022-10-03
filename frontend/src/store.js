@@ -18,6 +18,8 @@ import productDetailReducer from './reducers/productReducers/productDetailsSlice
 import productTopRatedReducer from './reducers/productReducers/productTopRatedSlice'
 import productReviewCreateReducer from './reducers/productReducers/productReviewCreateSlice'
 
+import attractionsReducer from './reducers/productReducers/attractionsSlice'
+
 import orderPayReducer from './reducers/orderReducers/orderPaySlice'
 import orderListReducer from './reducers/orderReducers/orderListSlice'
 import orderListMyReducer from './reducers/orderReducers/orderListMySlice'
@@ -46,6 +48,8 @@ const store = configureStore({
     productDetails: productDetailReducer,
     productTopRated: productTopRatedReducer,
     productReviewCreate: productReviewCreateReducer,
+
+    attractionsList: attractionsReducer,
 
     orderPay: orderPayReducer,
     orderList: orderListReducer,

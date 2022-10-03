@@ -29,11 +29,13 @@
     "dotenv": "^16.0.1",
     "express": "^4.17.1",
     "express-async-handler": "^1.2.0",
+    "html-react-parser": "^3.0.4",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.5.2",
     "morgan": "^1.10.0",
     "multer": "^1.4.5-lts.1",
-    "react-helmet": "^6.1.0"
+    "react-helmet": "^6.1.0",
+    "react-scripts": "^5.0.1"
   },
   "bugs": {
     "url": "https://github.com/BeezKneezDev/proshop/issues"
@@ -41,6 +43,8 @@
   "homepage": "https://github.com/BeezKneezDev/proshop#readme",
   "devDependencies": {
     "concurrently": "^7.3.0",
-    "nodemon": "^2.0.19"
+    "nodemon": "^2.0.19",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }
