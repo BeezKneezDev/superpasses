@@ -11,21 +11,23 @@ import {
 //   attraction_create_success
 // } from '../reducers/productReducers/attractionCreateSlice'
 
-export const listAttractions = () => async (dispatch, getState) => {
-  try {
-    dispatch(attractions_list_request())
+export const listAttractions =
+  (activity = '') =>
+  async (dispatch, getState) => {
+    try {
+      dispatch(attractions_list_request())
 
-    const { data } = await axios.get(`/api/attractions/`)
+      const { data } = await axios.get(`/api/attractions?activity=${activity}`)
 
-    dispatch(attractions_list_success(data))
-  } catch (err) {
-    const error =
-      err.response && err.response.data.message
-        ? err.response.data.message
-        : err.message
-    dispatch(attractions_list_fail(error))
+      dispatch(attractions_list_success(data))
+    } catch (err) {
+      const error =
+        err.response && err.response.data.message
+          ? err.response.data.message
+          : err.message
+      dispatch(attractions_list_fail(error))
+    }
   }
-}
 
 // export const createAttraction = () => async (dispatch, getState) => {
 //   try {

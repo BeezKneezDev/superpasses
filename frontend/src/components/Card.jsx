@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Card = ({ attraction }) => {
+const Card = ({ attraction, filterCategory }) => {
   return (
     <div class='relative group w-96 h-96 overflow-hidden bg-black m-auto '>
       <img
@@ -17,14 +17,15 @@ const Card = ({ attraction }) => {
         </div>
         <div class='absolute w-full flex place-content-center mt-20'>
           <p class='font-sans text-lg text-center w-4/5 text-white mt-4'>
-            Collaborative effort of a group to achieve a common goal the most
-            effective and efficient way!
+            {attraction.activity}
           </p>
         </div>
-        <button class='absolute left-1/4 bottom-4 bg-white text-black font-bold uppercase h-12 w-48'>
-          <Link to={`/attractions?attraction=${attraction.name}`}>
-            View Passes
-          </Link>
+        <button
+          class='absolute left-1/4 bottom-4 bg-white text-black font-bold uppercase h-12 w-48'
+          value={attraction.name}
+          onClick={filterCategory}
+        >
+          View Passes
         </button>
       </div>
     </div>

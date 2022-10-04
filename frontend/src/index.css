@@ -37,3 +37,10 @@ h2 {
   src: local('Blocklyn-Grunge'),
     url('./fonts/Blocklyn-Grunge.ttf') format('truetype');
 }
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  background-color: #31808f;
+}

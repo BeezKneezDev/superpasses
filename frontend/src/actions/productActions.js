@@ -51,6 +51,7 @@ export const listProducts =
       dispatch(products_request())
       const { data } = await axios.get(
         `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+        //`/api/products?category=''&attraction=''&keyword=${keyword}&pageNumber=${pageNumber}`
       )
       dispatch(products_success(data))
     } catch (err) {
