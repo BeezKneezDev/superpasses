@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Card = ({ attraction, filterCategory }) => {
+const Card = ({ attraction, filterByAttraction }) => {
   return (
     <div class='relative group w-96 h-96 overflow-hidden bg-black m-auto '>
       <img
@@ -23,7 +23,7 @@ const Card = ({ attraction, filterCategory }) => {
         <button
           class='absolute left-1/4 bottom-4 bg-white text-black font-bold uppercase h-12 w-48'
           value={attraction.name}
-          onClick={filterCategory}
+          onClick={filterByAttraction}
         >
           View Passes
         </button>

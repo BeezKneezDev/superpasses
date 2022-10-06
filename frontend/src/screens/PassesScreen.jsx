@@ -1,28 +1,26 @@
 import React from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Button } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Product from '../components/Product'
-import Paginate from '../components/Paginate'
 import { listProducts } from '../actions/productActions'
-import ProductCarousel from './../components/ProductCarousel'
 import Meta from '../components/Meta'
-import Slider from './../components/Slider'
-import Navbar from '../components/Navbar'
-import { Container } from 'react-bootstrap'
 import Card from '../components/Card'
 import { listAttractions } from './../actions/attractionActions'
-import { Button } from 'react-bootstrap'
+import Hero from '../components/Hero'
 
 const Passes = () => {
+  const ref = useRef(null)
+
   const { keyword } = useParams()
   const dispatch = useDispatch()
   const pageNumber = useParams().pageNumber || 1
 
   const [activity, setActivity] = useState('')
+  const [attraction, setAttraction] = useState('')
 
   const attractionsList = useSelector((state) => state.attractionsList)
   const {
@@ -35,41 +33,32 @@ const Passes = () => {
   const { loading, error, products, page, pages } = productsList
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber))
+    dispatch(listProducts(keyword, pageNumber, attraction))
     dispatch(listAttractions(activity))
-  }, [dispatch, keyword, pageNumber, activity])
+  }, [dispatch, keyword, pageNumber, activity, attraction])
 
   const handleClick = (e) => {
     e.preventDefault(e)
     setActivity(e.target.value)
-    console.log(e.target.value)
+    //console.log(e.target.value)
   }
 
-  const filterCategory = (e) => {
+  const filterByAttraction = (e) => {
     e.preventDefault(e)
-    console.log(e.target.value)
+    setAttraction(e.target.value)
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+    //console.log(e.target.value)
   }
   return (
     <>
       <Meta />
-
-      {/* <div className='px-60 pt-28 pb-40'>
-        <p className=' text-4xl text-center leading-snug'>
-          Super Passes offers you a one stop shop to see the best Rotorua
-          tourist attractions and Taupo tourist attractions. We have a wide
-          range of Taupo &amp; Rotorua sightseeing passes that include iconic
-          and top-rated attractions. The passes can be used for sightseeing in
-          one day or for tours over several days. If you're looking for things
-          to do in Taupo &amp; Rotorua, you need look no further than Super
-          Passes.
-        </p>
-      </div> */}
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+          <Hero />
           <Row className='px-10 pt-20'>
             <div className='flex m-auto pb-2'>
               <Button onClick={handleClick} variant='primary' className='mx-2'>
@@ -111,12 +100,15 @@ const Passes = () => {
                 xl={3}
                 className='my-2'
               >
-                <Card attraction={attraction} filterCategory={filterCategory} />
+                <Card
+                  attraction={attraction}
+                  filterByAttraction={filterByAttraction}
+                />
               </Col>
             ))}
           </Row>
 
-          <div className='m-auto px-20'>
+          <div ref={ref} className='m-auto px-20'>
             <Row>
               {products.map((product) => (
                 <Col key={product._id} sm={12} md={6} lg={4} xl={3}>

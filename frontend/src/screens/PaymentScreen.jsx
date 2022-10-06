@@ -21,7 +21,7 @@ const PaymentScreen = () => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(cart_save_payment_method(paymentMethod))
+    // dispatch(cart_save_payment_method(paymentMethod))
     navigate('/placeorder')
   }
 

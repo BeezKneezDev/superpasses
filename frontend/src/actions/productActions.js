@@ -45,13 +45,13 @@ export const listProductDetails = (id) => async (dispatch) => {
 }
 
 export const listProducts =
-  (keyword = '', pageNumber = '') =>
+  (keyword = '', pageNumber = '', attraction = '', category = '') =>
   async (dispatch) => {
     try {
       dispatch(products_request())
       const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-        //`/api/products?category=''&attraction=''&keyword=${keyword}&pageNumber=${pageNumber}`
+        //`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}&attraction=${attraction}&category=${category}`
       )
       dispatch(products_success(data))
     } catch (err) {

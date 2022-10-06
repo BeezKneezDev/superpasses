@@ -21,8 +21,10 @@ const Product = ({ product }) => {
           </Card.Title>
         </Link>
 
+        {/* need to find the lowest price */}
         <Card.Text>
           <span className='text-[12px]  text-brand'>From</span>
+          <div>need to find the lowest price</div>
           <div>${product.price}</div>
         </Card.Text>
       </Card.Body>

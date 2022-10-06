@@ -1,4 +1,5 @@
 import { Link, useParams, useNavigate } from 'react-router-dom'
+import styled from 'styled-components'
 import React, { useEffect } from 'react'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -14,9 +15,40 @@ import {
   Card,
   Image
 } from 'react-bootstrap'
+import Hero from '../components/Hero'
 
+import {
+  addAdultProductQuantity,
+  addChildProductQuantity,
+  removeAdultProductQuantity,
+  removeChildProductQuantity,
+  removeProduct
+} from '../reducers/cartReducers/cartSlice'
+
+const Price = styled.span`
+  font-weight: 100;
+  font-size: 40px;
+`
+
+const AddContainer = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
+const Amount = styled.span`
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: 1px solid teal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 5px;
+`
 const CartScreen = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems)
+  const cart = useSelector((state) => state.cart)
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -30,86 +62,139 @@ const CartScreen = () => {
   }
 
   return (
-    <Container>
-      <Row>
-        <Col md={8}>
-          <h1>Shopping Cart</h1>
-          {cartItems.length === 0 ? (
-            <Message>
-              Your cart is empty <Link to='/'>Go Back</Link>
-            </Message>
-          ) : (
-            <ListGroup variant='flush'>
-              {cartItems.map((item) => (
-                <ListGroup.Item key={item.product}>
-                  <Row>
-                    <Col md={2}>
+    <>
+      <Hero />
+      <Container className='pt-10'>
+        <h1>Shopping Cart</h1>
+        <Row>
+          <Col md={8}>
+            {cart.cartItems.length === 0 ? (
+              <Message>
+                Your cart is empty <Link to='/'>Go Back</Link>
+              </Message>
+            ) : (
+              <>
+                {cart.cartItems.map((item) => (
+                  <div className='flex pb-5'>
+                    <div className=' w-2/5'>
                       <Image src={item.image} alt={item.name} fluid rounded />
-                    </Col>
-                    <Col md={3}>
-                      <Link to={`/product/${item.product}`}>{item.name}</Link>
-                    </Col>
-                    <Col md={2}>${item.price}</Col>
-                    <Col md={2}>
-                      <Form.Control
-                        as='select'
-                        value={item.qty}
-                        onChange={(e) =>
-                          dispatch(
-                            addToCart(item.product, Number(e.target.value))
-                          )
-                        }
+                    </div>
+                    <div className=' w-3/5 px-4 flex flex-col '>
+                      <div>
+                        <h4 className='text-2xl'>{item.name}</h4>
+                      </div>
+                      <div>
+                        <AddContainer>
+                          <div
+                            onClick={() =>
+                              item.adultQuantity > 1 &&
+                              dispatch(removeAdultProductQuantity(item._id))
+                            }
+                          >
+                            -
+                          </div>
+                          <Amount>{item.adultQuantity}</Amount>
+                          <div
+                            onClick={() =>
+                              dispatch(addAdultProductQuantity(item._id))
+                            }
+                          >
+                            +
+                          </div>
+                          <div>Adult Pass</div>
+                          <Price>
+                            $ {item.adultPrice * item.adultQuantity}
+                          </Price>
+                        </AddContainer>
+                        <AddContainer>
+                          <div
+                            onClick={() =>
+                              item.childQuantity > 0 &&
+                              dispatch(removeChildProductQuantity(item._id))
+                            }
+                          >
+                            -
+                          </div>
+                          <Amount>{item.childQuantity}</Amount>
+                          <div
+                            onClick={() =>
+                              dispatch(addChildProductQuantity(item._id))
+                            }
+                          >
+                            +
+                          </div>
+                          <div>child Pass</div>
+                          <Price>
+                            $ {item.childPrice * item.childQuantity}
+                          </Price>
+                        </AddContainer>
+                      </div>
+
+                      <div
+                        className='mt-auto self-end'
+                        onClick={() => dispatch(removeProduct(item._id))}
                       >
-                        {[...Array(item.countInStock).keys()].map((x) => (
-                          <option key={x + 1} value={x + 1}>
-                            {x + 1}
-                          </option>
-                        ))}
-                      </Form.Control>
-                    </Col>
-                    <Col md={2}>
-                      <Button
-                        type='button'
-                        variant='light'
-                        onClick={() => removeFromCartHandler(item.product)}
-                      >
-                        <i className='fas fa-trash'></i>
-                      </Button>
-                    </Col>
-                  </Row>
+                        <div className=' text-right'>
+                          <Button>Remove</Button>
+                          <div className='pt-2'>
+                            <h4>
+                              Pass Total $
+                              {item.adultPrice * item.adultQuantity +
+                                item.childPrice * item.childQuantity}
+                            </h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </>
+            )}
+          </Col>
+          <Col md={4}>
+            <Card>
+              <ListGroup variant='flush'>
+                <h2 className='p-3'>Passes</h2>
+                {cart.cartItems.map((item) => (
+                  <div className='p-3'>
+                    <h5>{item.name}</h5>
+                    <div>Adult x {item.adultQuantity}</div>
+                    <div>Child x {item.childQuantity}</div>
+                    <div>
+                      ${' '}
+                      {item.adultPrice * item.adultQuantity +
+                        item.childPrice * item.childQuantity}
+                    </div>
+                  </div>
+                ))}
+                <ListGroup.Item>
+                  <h2>
+                    Total Passes (
+                    {cart.cartItems.reduce(
+                      (acc, item) =>
+                        acc + item.adultQuantity + item.childQuantity,
+                      0
+                    )}
+                    )
+                  </h2>
+                  <h3>Total: ${cart.total}</h3>
                 </ListGroup.Item>
-              ))}
-            </ListGroup>
-          )}
-        </Col>
-        <Col md={4}>
-          <Card>
-            <ListGroup variant='flush'>
-              <ListGroup.Item>
-                <h2>
-                  Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}
-                  ) items
-                </h2>
-                $
-                {cartItems
-                  .reduce((acc, item) => acc + item.qty * item.price, 0)
-                  .toFixed(2)}
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button
-                  type='button'
-                  className='btn-block'
-                  disabled={cartItems.length === 0}
-                  onClick={checkoutHandler}
-                >
-                  Proceed To Checkout
-                </Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+                <ListGroup.Item>
+                  <Button
+                    type='button'
+                    className='btn-block'
+                    disabled={cart.quantity === 0}
+                    onClick={checkoutHandler}
+                  >
+                    Proceed To Checkout
+                  </Button>
+                </ListGroup.Item>
+              </ListGroup>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    </>
   )
 }
 

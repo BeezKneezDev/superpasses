@@ -20,6 +20,14 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true
     },
+    activity: {
+      type: String,
+      required: true
+    },
+    superpass: {
+      type: Boolean,
+      default: false
+    },
     attraction: {
       type: Array,
       required: true
@@ -36,11 +44,9 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    price: {
-      type: Number,
-      required: true,
-      default: 0
-    }
+    adultPrice: { type: Number, required: false, default: 0 },
+    childPrice: { type: Number, required: false, default: 0 },
+    familyPrice: { type: Number, required: false, default: 0 }
   },
   {
     timestamps: true

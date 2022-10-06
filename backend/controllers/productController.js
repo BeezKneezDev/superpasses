@@ -5,8 +5,8 @@ import Product from './../models/productModel.js'
 // @route   GET /api/products
 // @access  Public
 const getProducts = asyncHandler(async (req, res) => {
-  const pageSize = 999
-  const page = Number(req.query.pageNumber) || 1
+  //const pageSize = 999
+  //const page = Number(req.query.pageNumber) || 1
   const keyword = req.query.keyword
     ? {
         name: {
@@ -16,12 +16,43 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
-  const count = await Product.count({ ...keyword })
-  const products = await Product.find({ ...keyword })
-    //const products = await Product.find({ category: 'Super Passes' })
-    .limit(pageSize)
-    .skip(pageSize * (page - 1))
-  res.json({ products, page, pages: Math.ceil(count / pageSize) })
+  const attraction = req.query.attraction
+    ? {
+        attraction: {
+          $regex: req.query.attraction,
+          $options: 'i'
+        }
+      }
+    : {}
+
+  const activity = req.query.activity
+    ? {
+        activity: {
+          $regex: req.query.activity,
+          $options: 'i'
+        }
+      }
+    : {}
+
+  const category = req.query.category
+    ? {
+        category: {
+          $regex: req.query.category,
+          $options: 'i'
+        }
+      }
+    : {}
+
+  //const count = await Product.count({ ...keyword })
+  //const products = await Product.find({ attraction: 'Rotorua Canopy Tours' })
+  console.log(attraction)
+  const products = await Product.find({ ...attraction, ...activity })
+
+  //const products = await Product.find({ attraction: 'skyline' })
+  //.limit(pageSize)
+  //.skip(pageSize * (page - 1))
+  // res.json({ products, page, pages: Math.ceil(count / pageSize) })
+  res.json({ products })
 })
 
 // @des     Fetch single product
@@ -59,16 +90,22 @@ const deleteProduct = asyncHandler(async (req, res) => {
 const createProduct = asyncHandler(async (req, res) => {
   const product = new Product({
     name: 'Sample name',
-    price: 0,
     user: req.user._id,
     image: '/images/sample.jpg',
-    brand: 'Sample brand',
-    category: 'Sample Category',
+    summary: 'Sample summary',
+    location: 'Rotorua',
+    attraction: [],
+    category: [],
     description: 'Sample description',
-    numReviews: 0,
-    countInStock: 0
+    prices: []
   })
 
+  const price = {
+    name: 'Adult Pass',
+    price: 155
+  }
+
+  product.prices.push(price)
   const createdProduct = await product.save()
   res.status(201).json(createdProduct)
 })
@@ -87,9 +124,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.price = price
     product.description = description
     product.image = image
-    product.brand = brand
     product.category = category
-    product.countInStock = countInStock
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)
