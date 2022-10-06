@@ -1,18 +1,21 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit'
 
 export const productDetailSlice = createSlice({
   name: 'product',
   initialState: {
-    product: {
-      reviews: []
-    }
+    product: {},
+    products: []
   },
   reducers: {
     product_details_request: (state, action) => {
       return { loading: true, ...state }
     },
     product_details_success: (state, action) => {
-      return { loading: false, product: action.payload }
+      return {
+        loading: false,
+        product: action.payload.product,
+        products: action.payload.products
+      }
     },
     product_details_fail: (state, action) => {
       return { loading: false, error: action.payload }
@@ -20,6 +23,10 @@ export const productDetailSlice = createSlice({
   }
 })
 
-export const { product_details_request, product_details_success, product_details_fail } = productDetailSlice.actions
+export const {
+  product_details_request,
+  product_details_success,
+  product_details_fail
+} = productDetailSlice.actions
 
 export default productDetailSlice.reducer

@@ -8,33 +8,10 @@ import Loader from '../components/Loader'
 import Message from '../components/Message'
 import Meta from '../components/Meta'
 import Hero from '../components/Hero'
-import Product from '../components/Product'
 
 import { addProduct } from '../reducers/cartReducers/cartSlice'
-import { listProducts } from '../actions/productActions'
-
-const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
-`
-
-const AddContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px;
-`
+import Counter from './../components/Counter'
+import Product from './../components/Product'
 
 const ProductScreen = () => {
   const [qty, setQty] = useState(1)
@@ -44,8 +21,8 @@ const ProductScreen = () => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const productDetail = useSelector((state) => state.productDetail)
-  const { loading, error, product } = productDetail
+  const productDetails = useSelector((state) => state.productDetail)
+  const { loading, error, product, products } = productDetails
 
   const { id } = useParams()
   const navigate = useNavigate()
@@ -53,36 +30,20 @@ const ProductScreen = () => {
   const [adultQuantity, setAdultQuantity] = useState(1)
   const [childQuantity, setChildQuantity] = useState(0)
 
-  const productsList = useSelector((state) => state.productsList)
-  const { products } = productsList
-
-  const keyword = ''
-  const pageNumber = 1
-  const attraction = product.attraction[0]
-
-  const activity = ''
-
   useEffect(() => {
     dispatch(listProductDetails(id))
-    dispatch(listProducts(keyword, pageNumber, attraction, activity))
-    console.log(product.attraction[0])
   }, [dispatch, id])
 
   const handleAdultQuantity = (type) => {
-    if (type === 'dec') {
-      adultQuantity > 1 && setAdultQuantity(adultQuantity - 1)
-    } else {
-      setAdultQuantity(adultQuantity + 1)
-    }
-    console.log('clicked')
+    type === 'dec'
+      ? adultQuantity > 1 && setAdultQuantity(adultQuantity - 1)
+      : setAdultQuantity(adultQuantity + 1)
   }
 
   const handleChildQuantity = (type) => {
-    if (type === 'dec') {
-      childQuantity > 1 && setChildQuantity(childQuantity - 1)
-    } else {
-      setChildQuantity(childQuantity + 1)
-    }
+    type === 'dec'
+      ? childQuantity > 1 && setChildQuantity(childQuantity - 1)
+      : setChildQuantity(childQuantity + 1)
   }
 
   const addToCartHandler = () => {
@@ -118,24 +79,23 @@ const ProductScreen = () => {
                   </ListGroup.Item>
                   <ListGroup.Item>
                     {/* Adult */}
-                    <AddContainer>
-                      <div onClick={() => handleAdultQuantity('dec')}>-</div>
-                      <Amount>{adultQuantity}</Amount>
-                      <div onClick={() => handleAdultQuantity('inc')}>+</div>
-                      <div>Adult Pass (check if only one)</div>
-                      <Price>$ {product.adultPrice}</Price>
-                    </AddContainer>
+                    <Counter
+                      handleQuantity={handleAdultQuantity}
+                      quantity={adultQuantity}
+                      price={product.adultPrice}
+                      product={product}
+                    />
                   </ListGroup.Item>
                   {/* child */}
                   {product.childPrice > 0 && (
                     <ListGroup.Item>
-                      <AddContainer>
-                        <div onClick={() => handleChildQuantity('dec')}>-</div>
-                        <Amount>{childQuantity}</Amount>
-                        <div onClick={() => handleChildQuantity('inc')}>+</div>
-                        <div>Child Pass</div>
-                        <Price>$ {product.childPrice}</Price>
-                      </AddContainer>
+                      <Counter
+                        handleQuantity={handleChildQuantity}
+                        quantity={childQuantity}
+                        text={'Child'}
+                        price={product.childPrice}
+                        product={product}
+                      />
                     </ListGroup.Item>
                   )}
 
@@ -162,11 +122,12 @@ const ProductScreen = () => {
           </Container>
 
           <Row>
-            {products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+            {products &&
+              products.map((product) => (
+                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                  <Product product={product} />
+                </Col>
+              ))}
           </Row>
         </>
       )}

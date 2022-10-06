@@ -61,8 +61,16 @@ const getProducts = asyncHandler(async (req, res) => {
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findById(req.params.id)
 
+  // getting related products
+  const query = product.attraction[0]
+  const attraction = {
+    attraction: query
+  }
+
+  const products = await Product.find({ ...attraction })
+
   if (product) {
-    res.json(product)
+    res.json({ product, products })
   } else {
     res.status(404)
     throw new Error('Product not found')
@@ -96,16 +104,9 @@ const createProduct = asyncHandler(async (req, res) => {
     location: 'Rotorua',
     attraction: [],
     category: [],
-    description: 'Sample description',
-    prices: []
+    description: 'Sample description'
   })
 
-  const price = {
-    name: 'Adult Pass',
-    price: 155
-  }
-
-  product.prices.push(price)
   const createdProduct = await product.save()
   res.status(201).json(createdProduct)
 })
