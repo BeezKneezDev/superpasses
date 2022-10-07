@@ -42,7 +42,7 @@ const ProductScreen = () => {
 
   const handleChildQuantity = (type) => {
     type === 'dec'
-      ? childQuantity > 1 && setChildQuantity(childQuantity - 1)
+      ? childQuantity > 0 && setChildQuantity(childQuantity - 1)
       : setChildQuantity(childQuantity + 1)
   }
 
@@ -61,11 +61,11 @@ const ProductScreen = () => {
         <>
           {/* hero */}
           <Hero />
-          <Container>
+          <Container className='pt-10'>
             <Link className='btn bg-brand text-white my-3' to='/passes'>
               Go back
             </Link>
-            <Row>
+            <Row className=''>
               <Col md={6}>
                 <Image src={product.image} alt={product.name} fluid />
               </Col>
@@ -83,7 +83,6 @@ const ProductScreen = () => {
                       handleQuantity={handleAdultQuantity}
                       quantity={adultQuantity}
                       price={product.adultPrice}
-                      product={product}
                     />
                   </ListGroup.Item>
                   {/* child */}
@@ -94,7 +93,6 @@ const ProductScreen = () => {
                         quantity={childQuantity}
                         text={'Child'}
                         price={product.childPrice}
-                        product={product}
                       />
                     </ListGroup.Item>
                   )}
@@ -121,14 +119,23 @@ const ProductScreen = () => {
             </Row>
           </Container>
 
-          <Row>
-            {products &&
-              products.map((product) => (
-                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                  <Product product={product} />
-                </Col>
-              ))}
-          </Row>
+          <div className='py-20'>
+            <Container>
+              <div className=' text-center'>
+                <h4 className='text-brand primary-font text-2xl'>
+                  Related Products
+                </h4>
+              </div>
+              <Row>
+                {products &&
+                  products.map((product) => (
+                    <Col key={product._id} sm={12} md={6} lg={6} xl={4}>
+                      <Product product={product} />
+                    </Col>
+                  ))}
+              </Row>
+            </Container>
+          </div>
         </>
       )}
     </>

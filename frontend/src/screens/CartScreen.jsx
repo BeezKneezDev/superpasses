@@ -25,28 +25,6 @@ import {
   removeProduct
 } from '../reducers/cartReducers/cartSlice'
 
-const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
-`
-
-const AddContainer = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`
-
-const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0px 5px;
-`
 const CartScreen = () => {
   const cart = useSelector((state) => state.cart)
 
@@ -84,50 +62,62 @@ const CartScreen = () => {
                         <h4 className='text-2xl'>{item.name}</h4>
                       </div>
                       <div>
-                        <AddContainer>
-                          <div
-                            onClick={() =>
-                              item.adultQuantity > 1 &&
-                              dispatch(removeAdultProductQuantity(item._id))
-                            }
-                          >
-                            -
+                        {/* adult */}
+                        <div class='custom-number-input h-10 w-32'>
+                          <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
+                            <button
+                              class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
+                              onClick={() =>
+                                item.adultQuantity > 1 &&
+                                dispatch(removeAdultProductQuantity(item._id))
+                              }
+                            >
+                              <span class='m-auto text-2xl font-thin'>-</span>
+                            </button>
+                            <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
+                              <div>{item.adultQuantity}</div>
+                            </div>
+
+                            <button
+                              class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
+                              onClick={() =>
+                                dispatch(addAdultProductQuantity(item._id))
+                              }
+                            >
+                              <span class='m-auto text-2xl font-thin'>+</span>
+                            </button>
+                            <div>Adult Pass</div>
+                            <div>$ {item.adultPrice * item.adultQuantity}</div>
                           </div>
-                          <Amount>{item.adultQuantity}</Amount>
-                          <div
-                            onClick={() =>
-                              dispatch(addAdultProductQuantity(item._id))
-                            }
-                          >
-                            +
+                        </div>
+
+                        <div class='custom-number-input h-10 w-32'>
+                          <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
+                            <button
+                              class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
+                              onClick={() =>
+                                item.childQuantity > 1 &&
+                                dispatch(removeChildProductQuantity(item._id))
+                              }
+                            >
+                              <span class='m-auto text-2xl font-thin'>-</span>
+                            </button>
+                            <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
+                              <div>{item.childQuantity}</div>
+                            </div>
+
+                            <button
+                              class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
+                              onClick={() =>
+                                dispatch(addChildProductQuantity(item._id))
+                              }
+                            >
+                              <span class='m-auto text-2xl font-thin'>+</span>
+                            </button>
+                            <div>child Pass</div>
+                            <div>$ {item.childPrice * item.childQuantity}</div>
                           </div>
-                          <div>Adult Pass</div>
-                          <Price>
-                            $ {item.adultPrice * item.adultQuantity}
-                          </Price>
-                        </AddContainer>
-                        <AddContainer>
-                          <div
-                            onClick={() =>
-                              item.childQuantity > 0 &&
-                              dispatch(removeChildProductQuantity(item._id))
-                            }
-                          >
-                            -
-                          </div>
-                          <Amount>{item.childQuantity}</Amount>
-                          <div
-                            onClick={() =>
-                              dispatch(addChildProductQuantity(item._id))
-                            }
-                          >
-                            +
-                          </div>
-                          <div>child Pass</div>
-                          <Price>
-                            $ {item.childPrice * item.childQuantity}
-                          </Price>
-                        </AddContainer>
+                        </div>
                       </div>
 
                       <div

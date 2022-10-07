@@ -67,7 +67,12 @@ const getProductById = asyncHandler(async (req, res) => {
     attraction: query
   }
 
-  const products = await Product.find({ ...attraction })
+  // exclude current product
+  let products = await Product.find({ ...attraction })
+
+  products = products.filter(
+    (products) => products._id != product._id.toString()
+  )
 
   if (product) {
     res.json({ product, products })

@@ -44,3 +44,17 @@ button,
 [type='submit'] {
   background-color: #31808f;
 }
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus {
+  outline: none !important;
+}
+
+button:focus {
+  outline: none !important;
+}
