@@ -1,8 +1,8 @@
 import React from 'react'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useLayoutEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Button } from 'react-bootstrap'
+import { Row, Col, Button, Container } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Product from '../components/Product'
@@ -17,11 +17,12 @@ const Passes = () => {
 
   const { keyword } = useParams()
   const dispatch = useDispatch()
-  const pageNumber = useParams().pageNumber || 1
 
   const [activity, setActivity] = useState('')
   const [attraction, setAttraction] = useState('')
-
+  if (!attraction) {
+    window.scrollTo(0, 0)
+  }
   const attractionsList = useSelector((state) => state.attractionsList)
   const {
     loading: loadingAttractions,
@@ -30,12 +31,12 @@ const Passes = () => {
   } = attractionsList
 
   const productsList = useSelector((state) => state.productsList)
-  const { loading, error, products, page, pages } = productsList
+  const { loading, error, products } = productsList
 
   useEffect(() => {
-    dispatch(listProducts(keyword, pageNumber, attraction))
+    dispatch(listProducts(keyword, attraction))
     dispatch(listAttractions(activity))
-  }, [dispatch, keyword, pageNumber, activity, attraction])
+  }, [dispatch, keyword, activity, attraction])
 
   const handleClick = (e) => {
     e.preventDefault(e)
@@ -46,8 +47,9 @@ const Passes = () => {
   const filterByAttraction = (e) => {
     e.preventDefault(e)
     setAttraction(e.target.value)
+    setTimeout('', 600)
     ref.current?.scrollIntoView({ behavior: 'smooth' })
-    //console.log(e.target.value)
+    console.log(e.target.value)
   }
   return (
     <>
@@ -59,56 +61,76 @@ const Passes = () => {
       ) : (
         <>
           <Hero />
-          <Row className='px-10 pt-20'>
-            <div className='flex m-auto pb-2'>
-              <Button onClick={handleClick} variant='primary' className='mx-2'>
-                All
-              </Button>
-              <Button
-                onClick={handleClick}
-                value='adventure'
-                variant='primary'
-                className='mx-2'
-              >
-                Adventure
-              </Button>
-              <Button
-                onClick={handleClick}
-                value='scenic flights'
-                variant='primary'
-                className='mx-2'
-              >
-                Scenic Flights
-              </Button>
-              <Button
-                onClick={handleClick}
-                value='cultural experience'
-                variant='primary'
-                className='mx-2'
-              >
-                Cultural Experience
-              </Button>
-            </div>
-          </Row>
-          <Row className='px-10 pb-40'>
-            {attractions.map((attraction) => (
-              <Col
-                key={attraction._id}
-                sm={12}
-                md={6}
-                lg={4}
-                xl={3}
-                className='my-2'
-              >
-                <Card
-                  attraction={attraction}
-                  filterByAttraction={filterByAttraction}
-                />
-              </Col>
-            ))}
-          </Row>
 
-          <div ref={ref} className='m-auto px-20'>
+          {keyword ? (
+            <>
+              <div className='px-20 py-10'>
+                <Link
+                  to='/passes'
+                  className='text-base uppercase bg-brand hover:bg-seconary text-white font-bold py-3 px-10 '
+                >
+                  Go back
+                </Link>
+              </div>
+            </>
+          ) : (
+            <>
+              <Row className='px-10 pt-20'>
+                <div className='flex m-auto pb-2'>
+                  <Button
+                    onClick={handleClick}
+                    variant='primary'
+                    className='mx-2'
+                  >
+                    All
+                  </Button>
+                  <Button
+                    onClick={handleClick}
+                    value='adventure'
+                    variant='primary'
+                    className='mx-2'
+                  >
+                    Adventure
+                  </Button>
+                  <Button
+                    onClick={handleClick}
+                    value='scenic flights'
+                    variant='primary'
+                    className='mx-2'
+                  >
+                    Scenic Flights
+                  </Button>
+                  <Button
+                    onClick={handleClick}
+                    value='cultural experience'
+                    variant='primary'
+                    className='mx-2'
+                  >
+                    Cultural Experience
+                  </Button>
+                </div>
+              </Row>
+              <Row className='px-10 pb-40'>
+                {attractions.map((attraction) => (
+                  <Col
+                    key={attraction._id}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                    xl={3}
+                    className='my-2'
+                  >
+                    <Card
+                      attraction={attraction}
+                      filterByAttraction={filterByAttraction}
+                    />
+                  </Col>
+                ))}
+              </Row>
+            </>
+          )}
+
+          <div id='passes' ref={ref} className='m-auto px-20'>
             <Row>
               {products.map((product) => (
                 <Col key={product._id} sm={12} md={6} lg={4} xl={3}>

@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'react-alice-carousel/lib/alice-carousel.css';
+
+.tox-notification.tox-notification--in.tox-notification--warning {
+  display: none;
+}
+
+.alice-carousel__wrapper {
+  height: 530px !important;
+}
+
+.footer-slider .alice-carousel__wrapper {
+  height: 200px !important;
+}
+
+.footer-slider .alice-carousel__stage-item {
+  height: 200px;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -32,6 +50,21 @@ h2 {
   font-family: 'Blocklyn-Grunge';
 }
 
+.card-zoom {
+  @apply relative overflow-hidden;
+}
+
+.card-zoom-image {
+  @apply relative overflow-hidden w-full h-full transition-all duration-500 ease-in-out transform bg-center bg-cover z-0;
+}
+
+.card-zoom:hover .card-zoom-image {
+  @apply scale-125;
+}
+.card-zoom:hover .card-zoom-text {
+  @apply scale-100;
+}
+
 @font-face {
   font-family: 'Blocklyn-Grunge'; /*Can be any text*/
   src: local('Blocklyn-Grunge'),
@@ -57,4 +90,10 @@ input:focus {
 
 button:focus {
   outline: none !important;
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1280px;
+  }
 }

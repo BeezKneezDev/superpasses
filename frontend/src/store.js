@@ -11,6 +11,7 @@ import userRegisterReduducer from './reducers/userReducers/userRegisterSlice'
 import userUpdateProfileReduducer from './reducers/userReducers/userUpdateProfileSlice'
 
 import productsReducer from './reducers/productReducers/productsSlice'
+import superPassesReducer from './reducers/productReducers/superPasses'
 import productCreateReducer from './reducers/productReducers/productCreateSlice'
 import productDeleteReducer from './reducers/productReducers/productDeleteSlice'
 import productUpdateReducer from './reducers/productReducers/productUpdateSlice'
@@ -43,6 +44,7 @@ const store = configureStore({
     productCreate: productCreateReducer,
     productDetail: productDetailReducer,
     productUpdate: productUpdateReducer,
+    superpassesList: superPassesReducer,
     productDetails: productDetailReducer,
 
     attractionsList: attractionsReducer,

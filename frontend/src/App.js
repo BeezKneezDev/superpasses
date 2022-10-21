@@ -1,10 +1,10 @@
 import Home from './screens/HomeScreen'
 import Cart from './screens/CartScreen'
-import Header from './components/Header'
+
 import Footer from './components/Footer'
 import Order from './screens/OrderScreen'
 import Login from './screens/LoginScreen'
-import { Container } from 'react-bootstrap'
+
 import Users from './screens/UserListScreen'
 import Profile from './screens/ProfileScreen'
 import Payment from './screens/PaymentScreen'
@@ -22,6 +22,8 @@ import { Helmet } from 'react-helmet'
 import Navbar from './components/Navbar'
 
 import Passes from './screens/PassesScreen'
+import Rotorua from './screens/Rotorua'
+import Taupo from './screens/Taupo'
 
 const App = () => {
   return (
@@ -30,11 +32,9 @@ const App = () => {
       <main className=''>
         <Routes>
           <Route exact path='/' element={<Home />} />
-          <Route path='/search/:keyword' element={<Home />} />
-          <Route path='/page/:pageNumber' element={<Home />} />
-          <Route path='/search/:keyword/page/:pageNumber' element={<Home />} />
 
-          <Route path='/passes' element={<Passes />} />
+          <Route path='/passes/' element={<Passes />} />
+          <Route path='/search/:keyword' element={<Passes />} />
 
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
@@ -42,8 +42,10 @@ const App = () => {
           <Route path='/payment' element={<Payment />} />
           <Route path='/placeorder' element={<PlaceOrder />} />
           <Route path='/order/:id' element={<Order />} />
-          <Route path='/product/:id' element={<Product />} />
+          <Route path='/product/:slug' element={<Product />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/rotorua' element={<Rotorua />} />
+          <Route path='/taupo' element={<Taupo />} />
           <Route path='/cart'>
             <Route path=':id' element={<Cart />} />
             <Route path='' element={<Cart />} />
@@ -53,7 +55,7 @@ const App = () => {
           <Route path='/admin/user/:id/edit' element={<EditUser />} />
           <Route path='/admin/products' element={<Products />} />
           <Route path='/admin/products/:pageNumber' element={<Products />} />
-          <Route path='/admin/product/:id/edit' element={<EditProduct />} />
+          <Route path='/admin/product/:slug/edit' element={<EditProduct />} />
         </Routes>
       </main>
       <Footer />

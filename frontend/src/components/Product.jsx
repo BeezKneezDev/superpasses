@@ -1,34 +1,45 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-const Product = ({ product }) => {
+const Product = ({ product, slider = false }) => {
   return (
-    <Card className='my-3 p-3 rounded'>
-      <Link to={`/product/${product._id}`}>
+    <div className='my-3 shadow w-full flex flex-col pb-3 mx-3 card-zoom'>
+      <Link
+        to={`/product/${product.slug}`}
+        className=' hover:no-underline contents h-full '
+      >
         <div
-          className=' h-80 bg-center bg-cover'
+          className=' min-h-[320px] card-zoom-image'
           style={{
             backgroundImage: `url(${product.image})`
           }}
         ></div>
+
+        <div className='px-3 h-full flex flex-col relative z-10 bg-white'>
+          <h3 className='pb-4'>
+            <strong className='primary-font text-base leading-4  text-brand'>
+              {product.name}
+            </strong>
+          </h3>
+
+          <div className='flex items-center mt-auto'>
+            <div className=' basis-1/2'>
+              <Button className='hover:bg-brand'>View Pass</Button>
+            </div>
+            <div className=' basis-1/2 text-right'>
+              <span className='text-[12px]  text-seconary font-bold'>From</span>
+              <div className=' primary-font text-brand text-xl '>
+                $
+                {product.childPrice == 0
+                  ? product.adultPrice
+                  : product.childPrice}{' '}
+              </div>
+            </div>
+          </div>
+        </div>
       </Link>
-
-      <Card.Body>
-        <Link to={`/product/${product._id}`}>
-          <Card.Title as='h3'>
-            <strong>{product.name}</strong>
-          </Card.Title>
-        </Link>
-
-        {/* need to find the lowest price */}
-        <Card.Text>
-          <span className='text-[12px]  text-brand'>From</span>
-          <div>need to find the lowest price</div>
-          <div>${product.price}</div>
-        </Card.Text>
-      </Card.Body>
-    </Card>
+    </div>
   )
 }
 

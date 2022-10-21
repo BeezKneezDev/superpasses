@@ -25,15 +25,15 @@ import {
   product_update_success
 } from '../reducers/productReducers/productUpdateSlice'
 import {
-  product_top_fail,
-  product_top_request,
-  product_top_success
-} from '../reducers/productReducers/productTopRatedSlice'
+  superpasses_fail,
+  superpasses_request,
+  superpasses_success
+} from '../reducers/productReducers/superPasses'
 
-export const listProductDetails = (id) => async (dispatch) => {
+export const listProductDetails = (slug) => async (dispatch) => {
   try {
     dispatch(product_details_request())
-    const { data } = await axios.get(`/api/products/${id}`)
+    const { data } = await axios.get(`/api/products/${slug}`)
     dispatch(product_details_success(data))
   } catch (err) {
     const error =
@@ -45,13 +45,12 @@ export const listProductDetails = (id) => async (dispatch) => {
 }
 
 export const listProducts =
-  (keyword = '', pageNumber = '', attraction = '', category = '') =>
+  (keyword = '', attraction = '', category = '', location = '') =>
   async (dispatch) => {
     try {
       dispatch(products_request())
       const { data } = await axios.get(
-        //`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}&attraction=${attraction}&category=${category}`
+        `/api/products?keyword=${keyword}&attraction=${attraction}&category=${category}&location=${location}`
       )
       dispatch(products_success(data))
     } catch (err) {
@@ -63,7 +62,7 @@ export const listProducts =
     }
   }
 
-export const deleteProduct = (id) => async (dispatch, getState) => {
+export const deleteProduct = (slug) => async (dispatch, getState) => {
   try {
     dispatch(product_delete_request())
 
@@ -78,7 +77,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       }
     }
 
-    await axios.delete(`/api/products/${id}`, config)
+    await axios.delete(`/api/products/${slug}`, config)
     dispatch(product_delete_success())
   } catch (err) {
     const error =
@@ -145,18 +144,16 @@ export const updateProduct = (product) => async (dispatch, getState) => {
   }
 }
 
-export const listTopProducts =
-  (keyword = '', pageNumber = '') =>
-  async (dispatch) => {
-    try {
-      dispatch(product_top_request())
-      const { data } = await axios.get(`/api/products/top`)
-      dispatch(product_top_success(data))
-    } catch (err) {
-      const error =
-        err.response && err.response.data.message
-          ? err.response.data.message
-          : err.message
-      dispatch(product_top_fail(error))
-    }
+export const listSuperPasses = () => async (dispatch) => {
+  try {
+    dispatch(superpasses_request())
+    const { data } = await axios.get(`/api/products/superpasses`)
+    dispatch(superpasses_success(data))
+  } catch (err) {
+    const error =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(superpasses_fail(error))
   }
+}

@@ -1,4 +1,6 @@
 import mongoose from 'mongoose'
+import slug from 'mongoose-slug-maker'
+mongoose.plugin(slug)
 
 const productSchema = mongoose.Schema(
   {
@@ -9,7 +11,11 @@ const productSchema = mongoose.Schema(
     },
     name: {
       type: String,
-      required: true,
+      required: true
+    },
+    slug: {
+      type: String,
+      slug: 'title',
       unique: true
     },
     image: {
@@ -44,7 +50,7 @@ const productSchema = mongoose.Schema(
       type: String,
       required: true
     },
-    adultPrice: { type: Number, required: false, default: 0 },
+    adultPrice: { type: Number, required: true, default: 0 },
     childPrice: { type: Number, required: false, default: 0 },
     familyPrice: { type: Number, required: false, default: 0 }
   },

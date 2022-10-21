@@ -18,7 +18,7 @@ export const productDetailSlice = createSlice({
       }
     },
     product_details_fail: (state, action) => {
-      return { loading: false, error: action.payload }
+      return { loading: false, error: action.payload.message }
     }
   }
 })

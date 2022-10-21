@@ -1,6 +1,7 @@
 const products = [
   {
     name: 'Velocity Valley – VIP adventure Pass',
+    slug: 'velocity-valley-vip-adventure-pass',
     image: '/images/AGV.jpg',
     summary: 'Choose any five from Agrojet, Swoop, Shweeb or Freefall Xtreme',
     description:
@@ -15,6 +16,7 @@ const products = [
   },
   {
     name: 'Off Road Adrenaline Overdose Combo – Monster 4×4 & Raceline Karting',
+    slug: 'off-road-adrenaline-overdose-combo-monster-4×4-and-raceline-karting',
     image: '/images/69.jpg',
     summary:
       'This is the package for all adrenaline junkies! Test your courage and driving ability like never before racing New Zealand’s newest and longest A-rated KartSport circuit! Then you meet the Monster 4×4! It’s huge. It’s loud. It roars with V6 Power. Hold on tight for the ultimate thrill ride accelerating up steep tracks and vertical slopes.',
@@ -30,6 +32,7 @@ const products = [
   },
   {
     name: 'Rotorua Canopy Tours – Original',
+    slug: 'rotorua-canopy-tours-original',
     image: '/images/attractions/canopy.jpg',
     summary:
       'Soar through the trees and experience New Zealand’s ancient forest like never before – in this award-winning zipline adventure.  Journey with Rotorua Canopy Tour’s authentic kiwi guides through this beautiful land the way it once was.',
@@ -45,6 +48,7 @@ const products = [
   },
   {
     name: 'Huka Falls River Cruise',
+    slug: 'huka-falls-river-cruise',
     image: '/images/jasons.jpg',
     summary:
       'Cruise the Waikato River, from Aratiatia Dam to the turbulent white water at the base of the mighty Huka Falls.',
@@ -60,6 +64,7 @@ const products = [
   },
   {
     name: 'A Taste of Taupo by Floatplane',
+    slug: 'a-taste-of-taupo-by-floatplane',
     image: '/images/Main-shot.jpg',
     summary:
       'Get on board a high-wing Cessna 206 seaplane for a short and sweet 10 min Taupo scenic flight you won’t forget: experience your take-off (and landing) from the water, then enjoy unrestricted views, looking down on sparkling lakes, geothermal wonders and Huka Falls.',
@@ -75,6 +80,7 @@ const products = [
   },
   {
     name: 'Tongariro River Whitewater Rafting',
+    slug: 'tongariro-river-whitewater-rafting',
     image: '/images/Screen.jpg',
     summary:
       'Navigate over 60 heart-pounding, roller coaster rapids on the Tongariro River and see some epic sights, only accessible by raft. Grade 3 whitewater rafting at its best!',
@@ -91,6 +97,7 @@ const products = [
   // superpasses
   {
     name: 'Rotorua Five Star Pass',
+    slug: 'rotorua-five-star-pass',
     image: '/images/attractions/skyline-rotorua.jpg',
     summary:
       'Includes entry to Te Puia, Skyline Rotorua Gondola and Polynesian Spa.',
@@ -111,6 +118,7 @@ const products = [
   },
   {
     name: 'Skyline Rotorua – Half Day adventure Pass',
+    slug: 'skyline-rotorua-half-day-adventure-pass',
     image: '/images/rotorua.jpg',
     summary:
       'Luge, zoom and swing your way through Skyline Rotorua’s adrenaline-fuelled gravity rides with a Half Day adventure Pass.',
@@ -126,6 +134,7 @@ const products = [
   },
   {
     name: 'Rotorua Escapade Pass',
+    slug: 'rotorua-escapade-pass',
     image: '/images/escapade.jpg',
     summary:
       'Includes entry to Paradise Valley Springs, Skyline Rotorua Gondola & 5 luge rides, Velocity Valley or Straight Track ride at Zorb & Polynesian Spa.',
@@ -149,6 +158,7 @@ const products = [
   },
   {
     name: 'Rotorua Emerald Pass',
+    slug: 'rotorua-emerald-pass',
     image: '/images/volcanic-valley.jpg',
     summary:
       'Includes entry to Waimangu Volcanic Valley, Paradise Valley Springs and Skyline Gondola.',

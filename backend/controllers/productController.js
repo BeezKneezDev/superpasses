@@ -1,5 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Product from './../models/productModel.js'
+import slug from 'limax'
 
 // @des     Fetch all products
 // @route   GET /api/products
@@ -43,10 +44,24 @@ const getProducts = asyncHandler(async (req, res) => {
       }
     : {}
 
+  const location = req.query.location
+    ? {
+        location: {
+          $regex: req.query.location,
+          $options: 'i'
+        }
+      }
+    : {}
+
   //const count = await Product.count({ ...keyword })
   //const products = await Product.find({ attraction: 'Rotorua Canopy Tours' })
   console.log(attraction)
-  const products = await Product.find({ ...attraction, ...activity })
+  const products = await Product.find({
+    ...keyword,
+    ...attraction,
+    ...activity,
+    ...location
+  })
 
   //const products = await Product.find({ attraction: 'skyline' })
   //.limit(pageSize)
@@ -59,7 +74,7 @@ const getProducts = asyncHandler(async (req, res) => {
 // @route   GET /api/products:id
 // @access  Public
 const getProductById = asyncHandler(async (req, res) => {
-  const product = await Product.findById(req.params.id)
+  const product = await Product.findOne({ slug: req.params.slug })
 
   // getting related products
   const query = product.attraction[0]
@@ -120,17 +135,32 @@ const createProduct = asyncHandler(async (req, res) => {
 // @route   PUT /api/products/:id
 // @access  Private/Admin
 const updateProduct = asyncHandler(async (req, res) => {
-  const { name, price, description, image, brand, category, countInStock } =
-    req.body
-
+  const {
+    name,
+    image,
+    adultPrice,
+    childPrice,
+    superpass,
+    summary,
+    location,
+    activity,
+    attraction,
+    description
+  } = req.body
+  console.log(req.params.id)
   const product = await Product.findById(req.params.id)
-
   if (product) {
-    product.name = name
-    product.price = price
-    product.description = description
-    product.image = image
-    product.category = category
+    ;(product.name = name),
+      (product.slug = slug(name)),
+      (product.image = image),
+      (product.adultPrice = adultPrice),
+      (product.childPrice = childPrice),
+      (product.superpass = superpass),
+      (product.summary = summary),
+      (product.location = location),
+      (product.activity = activity),
+      (product.attraction = attraction),
+      (product.description = description)
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)
@@ -140,11 +170,11 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Get top rated products
-// @route   GET /api/products/top
+// @desc    Get superpasses products
+// @route   GET /api/products/superpasses
 // @access  Public
-const getTopProducts = asyncHandler(async (req, res) => {
-  const products = await Product.find({}).sort({ rating: -1 }).limit(3)
+const getsuperpasses = asyncHandler(async (req, res) => {
+  const products = await Product.find({ superpass: true })
   res.json(products)
 })
 
@@ -154,5 +184,5 @@ export {
   createProduct,
   updateProduct,
   getProductById,
-  getTopProducts
+  getsuperpasses
 }

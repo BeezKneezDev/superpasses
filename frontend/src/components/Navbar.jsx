@@ -15,6 +15,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const quantity = useSelector((state) => state.cart.quantity)
   const userLogin = useSelector((state) => state.userLogin)
+  const cart = useSelector((state) => state.cart)
   const { userInfo } = userLogin
 
   const logoutHandler = () => {
@@ -124,7 +125,7 @@ const Navbar = () => {
                 <Link to={'/cart'}>
                   <AiOutlineShoppingCart className='text-[3em] text-white' />
                   <div className=' absolute top-[-10px] right-[-10px] bg-white text-brand w-7 h-7 flex  rounded-full'>
-                    <div className='m-auto'>0</div>
+                    <div className='m-auto'>{cart.quantity}</div>
                   </div>
                 </Link>
               </div>

@@ -1,5 +1,4 @@
 import { Link, useParams, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
 import React, { useEffect } from 'react'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
@@ -42,81 +41,90 @@ const CartScreen = () => {
   return (
     <>
       <Hero />
-      <Container className='pt-10'>
-        <h1>Shopping Cart</h1>
+      <Container className='pt-20'>
         <Row>
           <Col md={8}>
             {cart.cartItems.length === 0 ? (
               <Message>
-                Your cart is empty <Link to='/'>Go Back</Link>
+                Your cart is empty <Link to='/passes'>Go Back</Link>
               </Message>
             ) : (
               <>
                 {cart.cartItems.map((item) => (
                   <div className='flex pb-5'>
                     <div className=' w-2/5'>
-                      <Image src={item.image} alt={item.name} fluid rounded />
+                      <Image src={item.image} alt={item.name} fluid />
                     </div>
                     <div className=' w-3/5 px-4 flex flex-col '>
                       <div>
-                        <h4 className='text-2xl'>{item.name}</h4>
+                        <h4 className='primary-font text-3xl text-brand'>
+                          {item.name}
+                        </h4>
                       </div>
                       <div>
-                        {/* adult */}
-                        <div class='custom-number-input h-10 w-32'>
-                          <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
-                            <button
-                              class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
-                              onClick={() =>
-                                item.adultQuantity > 1 &&
-                                dispatch(removeAdultProductQuantity(item._id))
-                              }
-                            >
-                              <span class='m-auto text-2xl font-thin'>-</span>
-                            </button>
-                            <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
-                              <div>{item.adultQuantity}</div>
+                        {/* Adult Counter */}
+                        <div className='flex justify-between items-center pt-3'>
+                          <div class='custom-number-input h-10 w-32'>
+                            <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
+                              <button
+                                class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
+                                onClick={() =>
+                                  item.adultQuantity > 1 &&
+                                  dispatch(removeAdultProductQuantity(item._id))
+                                }
+                              >
+                                <span class='m-auto text-2xl font-thin'>-</span>
+                              </button>
+                              <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
+                                <div>{item.adultQuantity}</div>
+                              </div>
+                              <button
+                                class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
+                                onClick={() =>
+                                  dispatch(addAdultProductQuantity(item._id))
+                                }
+                              >
+                                <span class='m-auto text-2xl font-thin'>+</span>
+                              </button>
                             </div>
-
-                            <button
-                              class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
-                              onClick={() =>
-                                dispatch(addAdultProductQuantity(item._id))
-                              }
-                            >
-                              <span class='m-auto text-2xl font-thin'>+</span>
-                            </button>
-                            <div>Adult Pass</div>
-                            <div>$ {item.adultPrice * item.adultQuantity}</div>
                           </div>
+                          {/* pass name */}
+                          <div>Adult Pass</div>
+                          {/* pass price  */}
+                          <div>${item.adultPrice * item.adultQuantity}</div>
                         </div>
 
-                        <div class='custom-number-input h-10 w-32'>
-                          <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
-                            <button
-                              class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
-                              onClick={() =>
-                                item.childQuantity > 1 &&
-                                dispatch(removeChildProductQuantity(item._id))
-                              }
-                            >
-                              <span class='m-auto text-2xl font-thin'>-</span>
-                            </button>
-                            <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
-                              <div>{item.childQuantity}</div>
-                            </div>
+                        {/* Child */}
 
-                            <button
-                              class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
-                              onClick={() =>
-                                dispatch(addChildProductQuantity(item._id))
-                              }
-                            >
-                              <span class='m-auto text-2xl font-thin'>+</span>
-                            </button>
-                            <div>child Pass</div>
-                            <div>$ {item.childPrice * item.childQuantity}</div>
+                        <div className='flex justify-between items-center pt-3'>
+                          <div class='custom-number-input h-10 w-32'>
+                            <div class='flex flex-row h-10 w-full  relative bg-transparent mt-1'>
+                              <button
+                                class=' bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer outline-none'
+                                onClick={() =>
+                                  item.childQuantity > 1 &&
+                                  dispatch(removeChildProductQuantity(item._id))
+                                }
+                              >
+                                <span class='m-auto text-2xl font-thin'>-</span>
+                              </button>
+                              <div class='text-center px-3 bg-[#ddd] font-semibold text-md md:text-basecursor-default flex items-center text-gray-700 '>
+                                <div>{item.childQuantity}</div>
+                              </div>
+                              <button
+                                class='bg-gray-300 text-white hover:text-gray-700 hover:bg-gray-400 h-full w-20  cursor-pointer'
+                                onClick={() =>
+                                  dispatch(addChildProductQuantity(item._id))
+                                }
+                              >
+                                <span class='m-auto text-2xl font-thin'>+</span>
+                              </button>
+                            </div>
                           </div>
+                          {/* pass name */}
+                          <div>Child Pass</div>
+                          {/* pass price  */}
+                          <div>${item.childPrice * item.childQuantity}</div>
                         </div>
                       </div>
 
