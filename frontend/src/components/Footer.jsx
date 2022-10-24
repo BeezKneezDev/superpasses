@@ -128,7 +128,7 @@ const Footer = () => {
                 />
               </div>
               <div class=''>
-                <h6 class='uppercase text-white primary-font text-2xl mb-4 flex  md:justify-start'>
+                <h6 class='uppercase text-white primary-font text-2xl mb-3 flex  md:justify-start'>
                   Rotorua Travel
                 </h6>
                 <p class='flex justify-center md:justify-start my-2 text-base '>
@@ -158,7 +158,7 @@ const Footer = () => {
                     </IconContext.Provider>
                     res@rotoruatravel.co.nz
                   </p>
-                  <p class='flex items-center justify-center md:justify-start mb-4 text-base'>
+                  <p class='flex items-center justify-center md:justify-start mb-3 text-base'>
                     <IconContext.Provider
                       value={{ size: '1.2em', className: 'mr-3' }}
                     >
@@ -171,45 +171,45 @@ const Footer = () => {
                 </div>
               </div>
               <div class=''>
-                <h6 class='uppercase text-white primary-font text-2xl mb-4 flex  md:justify-start'>
-                  Links
+                <h6 class='uppercase text-white primary-font text-2xl mb-3 flex  md:justify-start'>
+                  Top Passess
                 </h6>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
-                    Passes
+                    Rotorua Canopy Tours
                   </a>
                 </p>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
-                    About
+                    Huka Falls River Cruise
                   </a>
                 </p>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
-                    Blogs
+                    Rotorua Five Star Pass
                   </a>
                 </p>
                 <p>
                   <a href='#!' class='text-white'>
-                    Contact
+                    A Taste of Taupo by Floatplane
                   </a>
                 </p>
               </div>
               <div class=''>
-                <h6 class='uppercase text-white primary-font text-2xl mb-4 flex  md:justify-start'>
+                <h6 class='uppercase text-white primary-font text-2xl mb-3 flex  md:justify-start'>
                   Useful links
                 </h6>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
                     Cart
                   </a>
                 </p>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
                     FAQs
                   </a>
                 </p>
-                <p class='mb-4'>
+                <p class='mb-3'>
                   <a href='#!' class='text-white'>
                     My Account
                   </a>

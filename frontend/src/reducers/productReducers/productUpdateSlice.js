@@ -16,7 +16,7 @@ export const productUpdateSlice = createSlice({
       return { loading: false, error: action.payload }
     },
     product_update_reset: (state, action) => {
-      return { product: {} }
+      return { success: false, product: {} }
     }
   }
 })

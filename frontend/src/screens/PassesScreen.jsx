@@ -11,6 +11,8 @@ import Meta from '../components/Meta'
 import Card from '../components/Card'
 import { listAttractions } from './../actions/attractionActions'
 import Hero from '../components/Hero'
+import Locations from './../components/Locations'
+import LogoSlider from './../components/LogoSlider'
 
 const Passes = () => {
   const ref = useRef(null)
@@ -138,6 +140,13 @@ const Passes = () => {
                 </Col>
               ))}
             </Row>
+          </div>
+
+          <div className='pt-40'>
+            <Locations />
+          </div>
+          <div className='footer-slider pt-20'>
+            <LogoSlider />
           </div>
         </>
       )}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Form, Button, Row, Col, Table } from 'react-bootstrap'
+import { Form, Button, Table } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
@@ -60,8 +60,8 @@ const ProfileScreen = () => {
   }
 
   return (
-    <Row>
-      <Col md={3}>
+    <div className='container flex pt-20'>
+      <div className='w-1/3 pr-10'>
         <h2>User Profile</h2>
         {message && <Message variant='danger'>{message}</Message>}
         {error && <Message variant='danger'>{error}</Message>}
@@ -114,9 +114,9 @@ const ProfileScreen = () => {
             Update
           </Button>
         </Form>
-      </Col>
+      </div>
 
-      <Col md={9}>
+      <div className='w-2/3'>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
@@ -163,8 +163,8 @@ const ProfileScreen = () => {
             </tbody>
           </Table>
         )}
-      </Col>
-    </Row>
+      </div>
+    </div>
   )
 }
 

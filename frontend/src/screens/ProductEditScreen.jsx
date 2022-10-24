@@ -241,12 +241,15 @@ const ProductEditScreen = () => {
                   </Button>
                 </Form>
               </div>
-              <div
+              {/* <div
                 className=' w-1/2 bg-center bg-cover mx-20 my-10'
                 style={{
                   backgroundImage: `url(${product.image})`
                 }}
-              ></div>
+              ></div> */}
+              <div className='w-1/2'>
+                <img src={product.image} alt='' />
+              </div>
             </div>
           </>
         )}
