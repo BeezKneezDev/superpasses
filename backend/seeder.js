@@ -4,9 +4,11 @@ import colors from 'colors'
 import users from './data/users.js'
 import products from './data/products.js'
 import attractions from './data/attractions.js'
+import activities from './data/activities.js'
 import User from './models/userModel.js'
 import Product from './models/productModel.js'
 import Attraction from './models/attractionModel.js'
+import Activity from './models/activityModel.js'
 import Order from './models/orderModel.js'
 import connectDB from './config/db.js'
 
@@ -19,10 +21,12 @@ const importData = async () => {
     await Order.deleteMany()
     await Product.deleteMany()
     await Attraction.deleteMany()
+    //await Activity.deleteMany()
     await User.deleteMany()
 
     const createdUser = await User.insertMany(users)
-    const createdAttraction = await Attraction.insertMany(attractions)
+    await Attraction.insertMany(attractions)
+    //await Activity.insertMany(activities)
 
     const sampleProducts = products.map((product) => {
       return {

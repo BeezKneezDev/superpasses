@@ -17,6 +17,8 @@ import Products from './screens/ProductListScreen'
 import PlaceOrder from './screens/PlaceOrderScreen'
 import EditProduct from './screens/ProductEditScreen'
 
+import Faqs from './screens/Faqs'
+
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Helmet } from 'react-helmet'
 import Navbar from './components/Navbar'
@@ -24,6 +26,7 @@ import Navbar from './components/Navbar'
 import Passes from './screens/PassesScreen'
 import Rotorua from './screens/Rotorua'
 import Taupo from './screens/Taupo'
+import Contact from './screens/Contact'
 
 const App = () => {
   return (
@@ -32,6 +35,8 @@ const App = () => {
       <main className=''>
         <Routes>
           <Route exact path='/' element={<Home />} />
+          <Route path='/frequently-asked-questions' element={<Faqs />} />
+          <Route path='/contact' element={<Contact />} />
 
           <Route path='/passes/' element={<Passes />} />
           <Route path='/search/:keyword' element={<Passes />} />

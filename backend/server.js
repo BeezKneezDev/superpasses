@@ -13,6 +13,10 @@ import uploadRoutes from './routes/uploadRoutes.js'
 import productRoutes from './routes/productRoutes.js'
 import attractionRoutes from './routes/attractionRoutes.js'
 
+import { getActivities } from './controllers/activitesController.js'
+
+const router = express.Router()
+
 dotenv.config()
 connectDB()
 const app = express()
@@ -28,6 +32,8 @@ app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
 app.use('/api/products', productRoutes)
 app.use('/api/attractions', attractionRoutes)
+
+router.route('/api/activities').get(getActivities)
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)

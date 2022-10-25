@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { useRef, useEffect, useState, useLayoutEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +14,7 @@ import { listAttractions } from './../actions/attractionActions'
 import Hero from '../components/Hero'
 import Locations from './../components/Locations'
 import LogoSlider from './../components/LogoSlider'
+import AttractionSlider from './../components/AttractionSlider'
 
 const Passes = () => {
   const ref = useRef(null)
@@ -21,6 +23,7 @@ const Passes = () => {
   const dispatch = useDispatch()
 
   const [activity, setActivity] = useState('')
+  const [listActivities, setListActivities] = useState([])
   const [attraction, setAttraction] = useState('')
   if (!attraction) {
     window.scrollTo(0, 0)
@@ -38,8 +41,12 @@ const Passes = () => {
   useEffect(() => {
     dispatch(listProducts(keyword, attraction))
     dispatch(listAttractions(activity))
+    // axios.get('/api/activities').then((listActivities) => {
+    //   setListActivities(listActivities)
+    // })
   }, [dispatch, keyword, activity, attraction])
 
+  console.log(listActivities)
   const handleClick = (e) => {
     e.preventDefault(e)
     setActivity(e.target.value)
@@ -53,6 +60,16 @@ const Passes = () => {
     ref.current?.scrollIntoView({ behavior: 'smooth' })
     console.log(e.target.value)
   }
+
+  const activitiesList = [
+    'adventure',
+    'cultural experience',
+    'sightseeing',
+    'thermal',
+    'scenic flights',
+    'spa',
+    'parks'
+  ]
   return (
     <>
       <Meta />
@@ -86,56 +103,39 @@ const Passes = () => {
                   >
                     All
                   </Button>
-                  <Button
-                    onClick={handleClick}
-                    value='adventure'
-                    variant='primary'
-                    className='mx-2'
-                  >
-                    Adventure
-                  </Button>
-                  <Button
-                    onClick={handleClick}
-                    value='scenic flights'
-                    variant='primary'
-                    className='mx-2'
-                  >
-                    Scenic Flights
-                  </Button>
-                  <Button
-                    onClick={handleClick}
-                    value='cultural experience'
-                    variant='primary'
-                    className='mx-2'
-                  >
-                    Cultural Experience
-                  </Button>
+
+                  {activitiesList.map((activity) => (
+                    <Button
+                      onClick={handleClick}
+                      value={activity}
+                      variant='primary'
+                      className='mx-2'
+                    >
+                      {activity}
+                    </Button>
+                  ))}
                 </div>
               </Row>
-              <Row className='px-10 pb-40'>
-                {attractions.map((attraction) => (
-                  <Col
-                    key={attraction._id}
-                    sm={12}
-                    md={6}
-                    lg={4}
-                    xl={3}
-                    className='my-2'
-                  >
-                    <Card
-                      attraction={attraction}
-                      filterByAttraction={filterByAttraction}
-                    />
-                  </Col>
-                ))}
-              </Row>
+              <div className='activity-slider py-10'>
+                <AttractionSlider
+                  attractions={attractions}
+                  filterByAttraction={filterByAttraction}
+                />
+              </div>
             </>
           )}
 
           <div id='passes' ref={ref} className='m-auto px-20'>
             <Row>
               {products.map((product) => (
-                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                <Col
+                  key={product._id}
+                  sm={12}
+                  md={6}
+                  lg={4}
+                  xl={3}
+                  className='mb-10'
+                >
                   <Product product={product} />
                 </Col>
               ))}

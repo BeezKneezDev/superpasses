@@ -1,16 +1,10 @@
 const attractions = [
   // adventure
   {
-    name: 'Katoa Lake Rotorua',
-    slug: 'katoa-lake-rotorua',
+    name: 'Skyline Rotorua',
+    slug: 'skyline-rotorua',
     activity: 'adventure',
-    image: '/images/attractions/katoa.jpg'
-  },
-  {
-    name: 'Off Road NZ',
-    slug: 'off-road-nz',
-    activity: 'adventure',
-    image: '/images/attractions/off-road.jpg'
+    image: '/images/attractions/skyline-rotorua.jpg'
   },
   {
     name: 'Rotorua Canopy Tours',
@@ -19,47 +13,55 @@ const attractions = [
     image: '/images/attractions/canopy.jpg'
   },
   {
-    name: 'Rotorua Paddle Tours',
-    slug: 'rotorua-paddle-tours',
+    name: 'Off Road NZ',
+    slug: 'off-road-nz',
     activity: 'adventure',
-    image: '/images/attractions/paddle.jpg'
+    image: '/images/attractions/off-road.jpg'
   },
-  {
-    name: 'Skyline Rotorua',
-    slug: 'skyline-rotorua',
-    activity: 'adventure',
-    image: '/images/attractions/skyline-rotorua.jpg'
-  },
-  {
-    name: 'Taupo Tandem Skydive',
-    slug: 'taupo-tandem-skydive',
-    activity: 'adventure',
-    image: '/images/attractions/taupo-tandem.jpg'
-  },
-  {
-    name: 'Tongariro River Rafting',
-    slug: 'tongariro-river-rafting',
-    activity: 'adventure',
-    image: '/images/attractions/tongariro.jpg'
-  },
+
   {
     name: 'Velocity Valley',
     slug: 'velocity-valley',
     activity: 'adventure',
     image: '/images/attractions/velocity-valley.jpg'
   },
+  // cultural experience
   {
-    name: 'Zorb',
-    slug: 'zorb',
-    activity: 'adventure',
-    image: '/images/attractions/zorb.jpg'
+    name: 'Te Puia',
+    slug: 'te-puia',
+    activity: 'cultural experience',
+    image: '/images/attractions/volcanic-air.jpg'
   },
   {
-    name: 'Hukafalls',
-    slug: 'hukafalls',
-    activity: 'adventure',
-    image: '/images/attractions/hukafalls.jpg'
+    name: 'Whakarewarewa Thermal Village',
+    slug: 'whakarewarewa-thermal-village',
+    activity: 'cultural experience',
+    image: '/images/attractions/volcanic-air.jpg'
   },
+
+  //Sightseeing
+  {
+    name: 'Rotorua Duck Tours',
+    slug: 'rotorua-duck-tours',
+    activity: 'sightseeing',
+    image: '/images/attractions/volcanic-air.jpg'
+  },
+  {
+    name: 'Ernest Kemp',
+    slug: 'ernest-kemp',
+    activity: 'sightseeing',
+    image: '/images/attractions/volcanic-air.jpg'
+  },
+
+  //Thermal
+
+  {
+    name: 'Waimangu Volcanic Valley',
+    slug: 'waimangu-volcanic-valley',
+    activity: 'thermal',
+    image: '/images/attractions/volcanic-air.jpg'
+  },
+
   // scenic flights
   {
     name: 'Taupo Floatplane',
@@ -73,17 +75,18 @@ const attractions = [
     activity: 'scenic flights',
     image: '/images/attractions/volcanic-air.jpg'
   },
-  // cultural experience
+  //Spa
   {
-    name: 'Te Puia',
-    slug: 'te-puia',
-    activity: 'cultural experience',
+    name: 'Polynesian Spa',
+    slug: 'polynesian-spa',
+    activity: 'spa',
     image: '/images/attractions/volcanic-air.jpg'
   },
+  //Parks
   {
-    name: 'Whakarewarewa Thermal Village',
-    slug: 'whakarewarewa-thermal-village',
-    activity: 'cultural experience',
+    name: 'Paradise Valley Springs',
+    slug: 'paradise-valley-springs',
+    activity: 'parks',
     image: '/images/attractions/volcanic-air.jpg'
   }
 ]

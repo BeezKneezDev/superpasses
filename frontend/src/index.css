@@ -20,6 +20,21 @@
   height: 200px;
 }
 
+.activity-slider .alice-carousel__wrapper {
+  height: 400px !important;
+}
+
+.activity-slider .alice-carousel__dots-item:not(.__custom) {
+  width: 16px;
+  height: 16px;
+  background-color: #55a1af61;
+}
+
+.activity-slider .alice-carousel__dots-item:not(.__custom):hover,
+.activity-slider .alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #31808f;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -71,7 +86,7 @@ h2 {
     url('./fonts/Blocklyn-Grunge.ttf') format('truetype');
 }
 
-button,
+button:not(.faqs button),
 [type='button'],
 [type='reset'],
 [type='submit'] {

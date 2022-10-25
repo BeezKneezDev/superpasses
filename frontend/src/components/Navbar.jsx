@@ -55,7 +55,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   className=' uppercase font-semibold text-base text-white hover:text-primary'
-                  to={'/'}
+                  to={'/frequently-asked-questions'}
                 >
                   about
                 </Link>
@@ -67,7 +67,7 @@ const Navbar = () => {
                 </Link>
                 <Link
                   className=' uppercase font-semibold text-base text-white hover:text-primary'
-                  to={'/'}
+                  to={'/contact'}
                 >
                   contact
                 </Link>

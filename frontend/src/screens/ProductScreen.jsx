@@ -26,6 +26,9 @@ const ProductScreen = () => {
 
   console.log(slug)
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const productDetails = useSelector((state) => state.productDetail)
   const { loading, error, product, products } = productDetails
 
@@ -84,6 +87,13 @@ const ProductScreen = () => {
                 >
                   Go back
                 </button>
+                {userInfo && userInfo.isAdmin && (
+                  <button className='btn bg-brand text-white my-3 ml-3'>
+                    <Link to={`/admin/product/${product.slug}/edit`}>
+                      Edit Product
+                    </Link>
+                  </button>
+                )}
                 <div className='flex '>
                   <div className='card-zoom basis-1/2'>
                     <div
