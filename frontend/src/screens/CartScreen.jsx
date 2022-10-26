@@ -41,7 +41,7 @@ const CartScreen = () => {
   return (
     <>
       <Hero />
-      <Container className='pt-20'>
+      <Container className='py-20'>
         <Row>
           <Col md={8}>
             {cart.cartItems.length === 0 ? (

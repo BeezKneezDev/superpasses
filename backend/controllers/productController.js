@@ -76,15 +76,24 @@ const getProducts = asyncHandler(async (req, res) => {
 const getProductById = asyncHandler(async (req, res) => {
   const product = await Product.findOne({ slug: req.params.slug })
 
+  console.log(product.attraction[0])
+
   // getting related products
-  const query = product.attraction[0]
-  const attraction = {
-    attraction: query
-  }
+  let products = await Product.find({
+    $and: [
+      {
+        $or: [
+          { attraction: product.attraction[0] },
+          { attraction: product.attraction[1] },
+          { attraction: product.attraction[3] },
+          { attraction: product.attraction[4] },
+          { attraction: product.attraction[5] }
+        ]
+      }
+    ]
+  })
 
   // exclude current product
-  let products = await Product.find({ ...attraction })
-
   products = products.filter(
     (products) => products._id != product._id.toString()
   )
@@ -183,6 +192,11 @@ const getsuperpasses = asyncHandler(async (req, res) => {
   res.json(products)
 })
 
+// const getProductsByAttraction = asyncHandler(async (req, res) => {
+//   const products = await Product.find({ attraction: req.params.slug })
+//   res.json(products)
+// })
+
 export {
   getProducts,
   deleteProduct,
@@ -190,4 +204,5 @@ export {
   updateProduct,
   getProductById,
   getsuperpasses
+  //getProductsByAttraction
 }

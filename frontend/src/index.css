@@ -24,15 +24,15 @@
   height: 400px !important;
 }
 
-.activity-slider .alice-carousel__dots-item:not(.__custom) {
-  width: 16px;
-  height: 16px;
-  background-color: #55a1af61;
+.alice-carousel__dots-item:not(.__custom) {
+  width: 16px !important;
+  height: 16px !important;
+  background-color: #55a1af61 !important;
 }
 
-.activity-slider .alice-carousel__dots-item:not(.__custom):hover,
-.activity-slider .alice-carousel__dots-item:not(.__custom).__active {
-  background-color: #31808f;
+.alice-carousel__dots-item:not(.__custom):hover,
+.alice-carousel__dots-item:not(.__custom).__active {
+  background-color: #31808f !important;
 }
 
 * {
@@ -59,6 +59,33 @@ h1 {
 h2 {
   font-size: 1.4rem;
   padding: 0.5rem 0;
+}
+
+.attraction-card {
+  position: relative;
+}
+
+.description {
+  //background: red;
+}
+
+.description ul {
+  display: block;
+  list-style-type: disc;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+.description ol,
+.description ul {
+  list-style: unset;
+}
+
+.description strong {
+  font-weight: 600;
 }
 
 .primary-font {

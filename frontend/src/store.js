@@ -17,6 +17,8 @@ import productDeleteReducer from './reducers/productReducers/productDeleteSlice'
 import productUpdateReducer from './reducers/productReducers/productUpdateSlice'
 import productDetailReducer from './reducers/productReducers/productDetailsSlice'
 
+import productsByAttractionReducer from './reducers/productReducers/productsByAttractions'
+
 import attractionsReducer from './reducers/productReducers/attractionsSlice'
 
 import orderPayReducer from './reducers/orderReducers/orderPaySlice'
@@ -48,6 +50,7 @@ const store = configureStore({
     productDetails: productDetailReducer,
 
     attractionsList: attractionsReducer,
+    productsByAttractionList: productsByAttractionReducer,
 
     orderPay: orderPayReducer,
     orderList: orderListReducer,

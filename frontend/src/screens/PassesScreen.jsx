@@ -25,9 +25,9 @@ const Passes = () => {
   const [activity, setActivity] = useState('')
   const [listActivities, setListActivities] = useState([])
   const [attraction, setAttraction] = useState('')
-  if (!attraction) {
-    window.scrollTo(0, 0)
-  }
+  // if (!attraction) {
+  //   window.scrollTo(0, 0)
+  // }
   const attractionsList = useSelector((state) => state.attractionsList)
   const {
     loading: loadingAttractions,
@@ -41,9 +41,6 @@ const Passes = () => {
   useEffect(() => {
     dispatch(listProducts(keyword, attraction))
     dispatch(listAttractions(activity))
-    // axios.get('/api/activities').then((listActivities) => {
-    //   setListActivities(listActivities)
-    // })
   }, [dispatch, keyword, activity, attraction])
 
   console.log(listActivities)
@@ -116,31 +113,25 @@ const Passes = () => {
                   ))}
                 </div>
               </Row>
-              <div className='activity-slider py-10'>
-                <AttractionSlider
-                  attractions={attractions}
-                  filterByAttraction={filterByAttraction}
-                />
-              </div>
+              <Row>
+                {attractions.map((attraction) => (
+                  <Col
+                    key={attraction._id}
+                    sm={12}
+                    md={6}
+                    lg={4}
+                    xl={3}
+                    className='my-2'
+                  >
+                    <Card
+                      attraction={attraction}
+                      filterByAttraction={filterByAttraction}
+                    />
+                  </Col>
+                ))}
+              </Row>
             </>
           )}
-
-          <div id='passes' ref={ref} className='m-auto px-20'>
-            <Row>
-              {products.map((product) => (
-                <Col
-                  key={product._id}
-                  sm={12}
-                  md={6}
-                  lg={4}
-                  xl={3}
-                  className='mb-10'
-                >
-                  <Product product={product} />
-                </Col>
-              ))}
-            </Row>
-          </div>
 
           <div className='pt-40'>
             <Locations />

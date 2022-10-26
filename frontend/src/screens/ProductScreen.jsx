@@ -79,7 +79,7 @@ const ProductScreen = () => {
           {/* hero */}
           {pageLoaded && (
             <>
-              <Hero />
+              <Hero image={product.image} />
               <div className='container pt-10 pb-10'>
                 <button
                   className='btn bg-brand text-white my-3'
@@ -111,34 +111,26 @@ const ProductScreen = () => {
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <p className='text-lg'>{product.summary}</p>
+                        <div>
+                          <span className=' font-bold text-lg mr-2'>
+                            Adult Price:
+                          </span>
+                          <span className='  text-brand text-lg primary-font'>
+                            ${product.adultPrice}
+                          </span>
+                        </div>
+                        <div>
+                          <span className=' font-bold text-lg mr-2'>
+                            Child Price:
+                          </span>
+                          <span className=' capialize text-brand text-lg primary-font'>
+                            ${product.childPrice}
+                          </span>
+                        </div>
                       </ListGroup.Item>
 
                       <ListGroup.Item>
-                        <div>
-                          <span className=' font-bold text-base mr-2'>
-                            Location:
-                          </span>
-                          <span className=' capitalize'>
-                            {product.location}
-                          </span>
-                        </div>
-                        <div>
-                          <span className=' font-bold text-base mr-2'>
-                            Activity:
-                          </span>
-                          <span className=' capitalize'>
-                            {product.activity}
-                          </span>
-                        </div>
-                        <div>
-                          <span className=' font-bold text-base mr-2'>
-                            Attraction:
-                          </span>
-                          <span className=' capitalize'>
-                            {attractions.map((attraction) => `${attraction} `)}
-                          </span>
-                        </div>
+                        <p className='text-base'>{product.summary}</p>
                       </ListGroup.Item>
 
                       <ListGroup.Item>
@@ -182,14 +174,24 @@ const ProductScreen = () => {
                           Add to Cart
                         </Button>
                       </ListGroup.Item>
+
+                      <ListGroup.Item>
+                        <span className=' capitalize'>{product.location} </span>
+                        <span className=' capitalize'>{product.activity} </span>
+                        <span className=' capitalize'>
+                          {attractions.map((attraction) => `${attraction} `)}
+                        </span>
+                      </ListGroup.Item>
                     </ListGroup>
                   </div>
                 </div>
                 <div>
                   <ListGroup.Item>
-                    <h4 className=' primary-font'>Description:</h4>
+                    <h4 className=' primary-font text-2xl underline py-3'>
+                      Description:
+                    </h4>
                     <div
-                      className='text-base'
+                      className='text-base description'
                       dangerouslySetInnerHTML={{ __html: product.description }}
                     ></div>
                   </ListGroup.Item>
@@ -198,12 +200,8 @@ const ProductScreen = () => {
 
               {products.length > 0 && (
                 <div className='py-20'>
-                  <div className='container px-0'>
-                    <div className=' text-center'>
-                      <h4 className='text-brand primary-font text-2xl'>
-                        Related Products
-                      </h4>
-                    </div>
+                  <div className=' px-0'>
+                    <div className=' text-center'></div>
                     <Carousel products={products} />
                   </div>
                 </div>

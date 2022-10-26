@@ -28,6 +28,8 @@ import Rotorua from './screens/Rotorua'
 import Taupo from './screens/Taupo'
 import Contact from './screens/Contact'
 
+import Attraction from './screens/AttractionScreen'
+
 const App = () => {
   return (
     <BrowserRouter>
@@ -39,6 +41,7 @@ const App = () => {
           <Route path='/contact' element={<Contact />} />
 
           <Route path='/passes/' element={<Passes />} />
+          <Route path='/attraction/:slug' element={<Attraction />} />
           <Route path='/search/:keyword' element={<Passes />} />
 
           <Route path='/login' element={<Login />} />

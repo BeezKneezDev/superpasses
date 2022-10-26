@@ -10,6 +10,7 @@ import 'swiper/css/navigation'
 // import required modules
 import { Autoplay } from 'swiper'
 import { Container, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 export default function SliderComponent() {
   return (
@@ -39,13 +40,17 @@ export default function SliderComponent() {
                   <h2 className='primary-font text-8xl text-white'>
                     top tourist attractions
                   </h2>
-                  <p className='text-2xl pt-3 pb-4  text-white'>
+                  <p className='text-2xl pt-3 pb-10  text-white'>
                     If you’re looking for things to do in Taupo & Rotorua, you
                     need look no further than Super Passes.
                   </p>
-                  <button class=' text-lg uppercase bg-[#55a1af] hover:bg-[#31808f] text-white font-bold py-3 px-10 '>
+
+                  <Link
+                    className=' hover:no-underline text-lg uppercase bg-[#55a1af] hover:bg-[#31808f] text-white font-bold py-3 px-10'
+                    to={'/passes'}
+                  >
                     View Passes
-                  </button>
+                  </Link>
                 </div>
               </Container>
             </div>

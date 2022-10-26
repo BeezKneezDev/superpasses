@@ -12,7 +12,9 @@ const AttractionSlider = ({ attractions, filterByAttraction }) => {
     1200: { items: 4 }
   }
 
-  const items = attractions.map((attraction) => (
+  const strAscending = [...attractions].sort(() => Math.random() - 0.5)
+
+  const items = strAscending.map((attraction) => (
     <Col key={attraction._id} sm={12} md={6} lg={4} xl={3} className='my-2'>
       <Card attraction={attraction} filterByAttraction={filterByAttraction} />
     </Col>
@@ -24,9 +26,8 @@ const AttractionSlider = ({ attractions, filterByAttraction }) => {
       autoHeight={true}
       autoPlayInterval={3000}
       animationDuration={800}
-      autoPlayStrategy={'none'}
       items={items}
-      autoPlay={false}
+      autoPlay={true}
       responsive={responsive}
       controlsStrategy='alternate'
       disableButtonsControls={true}

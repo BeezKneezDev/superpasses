@@ -12,6 +12,18 @@ const attractionSchema = mongoose.Schema(
       required: true,
       unique: true
     },
+    description: {
+      type: String,
+      required: true
+    },
+    hero: {
+      type: String,
+      required: true
+    },
+    map: {
+      type: String,
+      required: true
+    },
     activity: {
       type: String,
       required: true

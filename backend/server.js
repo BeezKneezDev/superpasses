@@ -15,6 +15,10 @@ import attractionRoutes from './routes/attractionRoutes.js'
 
 import { getActivities } from './controllers/activitesController.js'
 
+//import { getProductsByAttraction } from './controllers/productController.js'
+import asyncHandler from 'express-async-handler'
+import Product from './models/productModel.js'
+
 const router = express.Router()
 
 dotenv.config()
@@ -34,6 +38,16 @@ app.use('/api/products', productRoutes)
 app.use('/api/attractions', attractionRoutes)
 
 router.route('/api/activities').get(getActivities)
+//router.route('/api/attraction/:slug').get(getProductsByAttraction)
+
+app.get(
+  '/api/attraction/:slug',
+  asyncHandler(async (req, res) => {
+    const query = req.params.slug.replaceAll('-', ' ')
+    const products = await Product.find({ attraction: query })
+    res.json(products)
+  })
+)
 
 app.get('/api/config/paypal', (req, res) =>
   res.send(process.env.PAYPAL_CLIENT_ID)

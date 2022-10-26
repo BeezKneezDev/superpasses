@@ -29,6 +29,11 @@ import {
   superpasses_request,
   superpasses_success
 } from '../reducers/productReducers/superPasses'
+import {
+  products_by_attraction_fail,
+  products_by_attraction_request,
+  products_by_attraction_success
+} from '../reducers/productReducers/productsByAttractions'
 
 export const listProductDetails = (slug) => async (dispatch) => {
   try {
@@ -155,5 +160,19 @@ export const listSuperPasses = () => async (dispatch) => {
         ? err.response.data.message
         : err.message
     dispatch(superpasses_fail(error))
+  }
+}
+
+export const listProductsByAttraction = (slug) => async (dispatch) => {
+  try {
+    dispatch(products_by_attraction_request())
+    const { data } = await axios.get(`/api/attraction/${slug}`)
+    dispatch(products_by_attraction_success(data))
+  } catch (err) {
+    const error =
+      err.response && err.response.data.message
+        ? err.response.data.message
+        : err.message
+    dispatch(products_by_attraction_fail(error))
   }
 }
