@@ -35,6 +35,10 @@
   background-color: #31808f !important;
 }
 
+.product-grid .product {
+  height: 100%;
+}
+
 * {
   box-sizing: border-box;
 }

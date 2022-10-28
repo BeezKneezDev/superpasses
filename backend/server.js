@@ -18,6 +18,7 @@ import { getActivities } from './controllers/activitesController.js'
 //import { getProductsByAttraction } from './controllers/productController.js'
 import asyncHandler from 'express-async-handler'
 import Product from './models/productModel.js'
+import Attraction from './models/attractionModel.js'
 
 const router = express.Router()
 
@@ -45,7 +46,8 @@ app.get(
   asyncHandler(async (req, res) => {
     const query = req.params.slug.replaceAll('-', ' ')
     const products = await Product.find({ attraction: query })
-    res.json(products)
+    const details = await Attraction.findOne({ slug: req.params.slug })
+    res.json({ products, details })
   })
 )
 

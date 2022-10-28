@@ -11,6 +11,8 @@ import Hero from '../components/Hero'
 import LeadSection from '../components/LeadSection'
 import Carousel from './../components/Carousel'
 import { Link } from 'react-router-dom'
+import ProductGrid from './../components/ProductGrid'
+import LogoSlider from './../components/LogoSlider'
 
 const Rotorua = () => {
   const dispatch = useDispatch()
@@ -39,9 +41,7 @@ const Rotorua = () => {
             <LeadSection content='Rotorua, the hub of North Island tourism, is an easy 2.5 hour drive south of Auckland. Well known for its geothermal activity with violent geysers, boiling mud pools, gentle hot springs, steaming cliffs and volcanoes, Rotorua is a must see destination. Home to Maori culture, the welcome from the indigenous people will make you feel part of the city.' />
           </div>
 
-          <div className='pb-20'>
-            <Carousel products={products} />
-          </div>
+          <ProductGrid products={products} />
 
           <div className='text-center pt-0 pb-20'>
             <Link
@@ -62,6 +62,9 @@ const Rotorua = () => {
           ></iframe>
         </>
       )}
+      <div className='footer-slider pt-20'>
+        <LogoSlider />
+      </div>
     </>
   )
 }

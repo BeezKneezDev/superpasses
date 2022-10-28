@@ -33,7 +33,9 @@ const Home = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Carousel products={products} />
+          <div className='px-10'>
+            <Carousel products={products} />
+          </div>
 
           <div className='text-center pt-20'>
             <Link

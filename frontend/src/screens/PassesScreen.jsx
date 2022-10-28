@@ -15,6 +15,7 @@ import Hero from '../components/Hero'
 import Locations from './../components/Locations'
 import LogoSlider from './../components/LogoSlider'
 import AttractionSlider from './../components/AttractionSlider'
+import LeadSection from '../components/LeadSection'
 
 const Passes = () => {
   const ref = useRef(null)
@@ -91,8 +92,13 @@ const Passes = () => {
             </>
           ) : (
             <>
-              <Row className='px-10 pt-20'>
-                <div className='flex m-auto pb-2'>
+              <LeadSection
+                content={
+                  'Donec sodales sagittis magna. Cras non dolor. Suspendisse non nisl sit amet velit hendrerit rutrum. Praesent ac massa at ligula laoreet iaculis. Etiam rhoncus.'
+                }
+              />
+              <Row className='px-10 mt-[-20px]'>
+                <div className='flex m-auto pb-4'>
                   <Button
                     onClick={handleClick}
                     variant='primary'

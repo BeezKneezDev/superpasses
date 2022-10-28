@@ -79,7 +79,7 @@ const ProductScreen = () => {
           {/* hero */}
           {pageLoaded && (
             <>
-              <Hero image={product.image} />
+              <Hero />
               <div className='container pt-10 pb-10'>
                 <button
                   className='btn bg-brand text-white my-3'

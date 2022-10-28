@@ -1,29 +1,23 @@
 import React from 'react'
-import axios from 'axios'
-import { useRef, useEffect, useState, useLayoutEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Button, Container } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import Product from '../components/Product'
-import {
-  listProducts,
-  listProductsByAttraction
-} from '../actions/productActions'
+import { listProductsByAttraction } from '../actions/productActions'
 import Meta from '../components/Meta'
-import Card from '../components/Card'
 import { listAttractions } from '../actions/attractionActions'
 import Hero from '../components/Hero'
-import Locations from '../components/Locations'
-import LogoSlider from '../components/LogoSlider'
+
 import AttractionSlider from '../components/AttractionSlider'
 import LeadSection from './../components/LeadSection'
+import ProductGrid from './../components/ProductGrid'
 
 const AttractionScreen = () => {
   const { slug } = useParams()
   const dispatch = useDispatch()
   const [attraction, setAttraction] = useState('')
+  window.scrollTo(0, 0)
 
   const attractionsList = useSelector((state) => state.attractionsList)
   const {
@@ -40,14 +34,11 @@ const AttractionScreen = () => {
   }
 
   const productsList = useSelector((state) => state.productsByAttractionList)
-  const { loading, error, products } = productsList
-
-  console.log(slug)
+  const { loading, error, products, details } = productsList
 
   useEffect(() => {
     dispatch(listProductsByAttraction(slug))
     dispatch(listAttractions())
-    //window.scrollTo(0, 0)
   }, [dispatch, slug])
 
   return (
@@ -59,35 +50,25 @@ const AttractionScreen = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Hero
-            image={
-              'https://www.canopytours.co.nz/wp-content/uploads/2018/07/gift-ideas-canopy-tours.jpg'
-            }
-          />
+          <Hero image={details.hero} />
 
-          <LeadSection
-            content={
-              'Phasellus a est. Donec elit libero, sodales nec, volutpat a, suscipit non, turpis. Phasellus consectetuer vestibulum elit. Proin magna. Vivamus elementum semper nisi.'
-            }
-          />
+          <LeadSection content={details.description} />
 
-          <Row className='pb-20 -mt-10'>
-            {products.map((product) => (
-              <Col
-                key={product._id}
-                sm={12}
-                md={6}
-                lg={4}
-                xl={3}
-                className='mb-10'
-              >
-                <Product product={product} />
-              </Col>
-            ))}
-          </Row>
+          <div className='px-10'>
+            <ProductGrid products={products} />
+          </div>
+
+          <div className='text-center pt-10  pb-32 w-full'>
+            <Link
+              to={'/passes'}
+              className=' hover:no-underline text-base uppercase bg-brand hover:bg-seconary text-white font-bold py-3 px-10 '
+            >
+              View All Passes
+            </Link>
+          </div>
 
           <iframe
-            src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3139.279478570671!2d176.2197803153273!3d-38.11043197969978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6d6c27b62116b577%3A0x456085ce2384f5df!2sSkyline%20Rotorua!5e0!3m2!1sen!2snz!4v1666821562218!5m2!1sen!2snz'
+            src={details.map}
             width={1900}
             height={600}
             style={{ border: 0 }}

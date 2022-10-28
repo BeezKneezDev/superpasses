@@ -13,7 +13,7 @@ const Carousel = ({ products }) => {
   }
 
   const items = products.map((product) => (
-    <div className='flex w-full h-full'>
+    <div className='flex w-full h-full px-2'>
       <Product product={product} sider={true} />
     </div>
   ))

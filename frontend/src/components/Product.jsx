@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const Product = ({ product, slider = false }) => {
   return (
-    <div className='my-3 shadow w-full flex flex-col pb-3 mx-3 card-zoom'>
+    <div className='my-3 shadow w-full flex flex-col pb-3 card-zoom product'>
       <Link
         to={`/product/${product.slug}`}
         className=' hover:no-underline contents h-full '
@@ -17,7 +17,7 @@ const Product = ({ product, slider = false }) => {
         ></div>
 
         <div className='px-3 h-full flex flex-col relative z-10 bg-white'>
-          <h3 className='pb-4'>
+          <h3 className='pb-1'>
             <strong className='primary-font text-base leading-4  text-brand'>
               {product.name}
             </strong>

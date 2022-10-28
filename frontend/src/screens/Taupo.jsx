@@ -1,6 +1,6 @@
 import React from 'react'
-import { useRef, useEffect, useState, useLayoutEffect } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Button, Container } from 'react-bootstrap'
 import Message from '../components/Message'
@@ -8,11 +8,11 @@ import Loader from '../components/Loader'
 import Product from '../components/Product'
 import { listProducts } from '../actions/productActions'
 import Meta from '../components/Meta'
-import Card from '../components/Card'
-import { listAttractions } from './../actions/attractionActions'
+
 import Hero from '../components/Hero'
 import LeadSection from '../components/LeadSection'
-import Carousel from './../components/Carousel'
+import ProductGrid from './../components/ProductGrid'
+import LogoSlider from './../components/LogoSlider'
 
 const Taupo = () => {
   const dispatch = useDispatch()
@@ -35,15 +35,15 @@ const Taupo = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <Hero />
+          <Hero image={'/images/hero/taupo.jpg'} />
 
           <div>
             <LeadSection content='Taupo is approx. 1 hours drive south of Rotorua (Approx. 3.5 Hours from Auckland) and is distinguished by its lakefront setting and range of outdoor activities from jet-boating, lake cruises to skydiving! Taupo is surrounded by hot springs, towing volcanoes and the amazing landscape of the Tongariro National Park.' />
           </div>
 
-          <Carousel products={products} />
+          <ProductGrid products={products} />
 
-          <div className='text-center pt-20 pb-40'>
+          <div className='text-center pb-40'>
             <Link
               to={'/passes'}
               className=' hover:no-underline text-base uppercase bg-brand hover:bg-seconary text-white font-bold py-3 px-10 '
@@ -62,6 +62,9 @@ const Taupo = () => {
           ></iframe>
         </>
       )}
+      <div className='footer-slider pt-20'>
+        <LogoSlider />
+      </div>
     </>
   )
 }
