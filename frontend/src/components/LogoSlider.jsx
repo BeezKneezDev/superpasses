@@ -1,8 +1,9 @@
 import React from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
+import { Link } from 'react-router-dom'
 
-const LogoSlider = () => {
+const LogoSlider = ({ attractions }) => {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -10,32 +11,16 @@ const LogoSlider = () => {
     1200: { items: 4 }
   }
 
-  const items = [
-    <div
-      className='w-full h-50 bg-contain bg-no-repeat bg-center'
+  const items = attractions.map((attraction) => (
+    <Link
+      to={`/attraction/${attraction.slug}`}
+      className='w-full h-50 bg-contain bg-no-repeat bg-center block'
       style={{
-        backgroundImage: `url("/images/logos/skyline-logo.png")`
+        backgroundImage: `url(${attraction.logo})`
       }}
-    ></div>,
-    <div
-      className='w-full h-50 bg-contain bg-no-repeat  bg-center'
-      style={{
-        backgroundImage: `url("/images/logos/zorb-logo.png")`
-      }}
-    ></div>,
-    <div
-      className='w-full h-50 bg-contain bg-no-repeat  bg-center'
-      style={{
-        backgroundImage: `url("/images/logos/volcanic-air-logo.png")`
-      }}
-    ></div>,
-    <div
-      className='w-full h-50 bg-contain bg-no-repeat  bg-center'
-      style={{
-        backgroundImage: `url("/images/logos/download.png")`
-      }}
-    ></div>
-  ]
+    ></Link>
+  ))
+
   return (
     <AliceCarousel
       mouseTracking

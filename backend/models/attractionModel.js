@@ -35,6 +35,10 @@ const attractionSchema = mongoose.Schema(
     image: {
       type: String,
       required: true
+    },
+    logo: {
+      type: String,
+      required: true
     }
   },
   {

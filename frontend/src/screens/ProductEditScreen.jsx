@@ -9,6 +9,12 @@ import { listProductDetails, updateProduct } from '../actions/productActions'
 import { product_update_reset } from '../reducers/productReducers/productUpdateSlice'
 
 import { Editor } from '@tinymce/tinymce-react'
+import { listAttractions } from '../actions/attractionActions'
+
+const options = [
+  { value: 'rotorua', label: 'Rotorua' },
+  { value: 'taupo', label: 'Taupo' }
+]
 
 const ProductEditScreen = () => {
   const editorRef = useRef(null)
@@ -30,13 +36,15 @@ const ProductEditScreen = () => {
   const [summary, setSummary] = useState('')
   const [location, setLocation] = useState('')
   const [activity, setActivity] = useState('')
-  const [attraction, setattraction] = useState('')
+  const [attraction, setAttraction] = useState('')
   const [description, setDescription] = useState('')
 
   const [uploading, setUploading] = useState(false)
 
   const productDetail = useSelector((state) => state.productDetail)
   const { product, loading, error } = productDetail
+
+  console.log(location)
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const {
@@ -45,7 +53,15 @@ const ProductEditScreen = () => {
     error: errorUpdate
   } = productUpdate
 
+  const attractionsList = useSelector((state) => state.attractionsList)
+  const {
+    loading: loadingAttractions,
+    error: errorAttractions,
+    attractions
+  } = attractionsList
+
   useEffect(() => {
+    dispatch(listAttractions())
     if (successUpdate) {
       dispatch(product_update_reset())
       navigate(`/admin/products`)
@@ -63,7 +79,7 @@ const ProductEditScreen = () => {
         setActivity(product.activity)
         setSummary(product.summary)
         setLocation(product.location)
-        setattraction(product.attraction)
+        setAttraction(product.attraction)
       }
     }
   }, [dispatch, navigate, product, slug, successUpdate])
@@ -156,24 +172,42 @@ const ProductEditScreen = () => {
                     ></Form.Control>
                     {uploading && <Loader />}
                   </Form.Group>
-                  <Form.Group controlId='location'>
-                    <Form.Label>Location</Form.Label>
-                    <Form.Control
-                      type='text'
-                      placeholder='Enter location'
+                  <div className='py-4'>
+                    <div>
+                      <label>Select Location</label>
+                    </div>
+                    <select
                       value={location}
                       onChange={(e) => setLocation(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
-                  <Form.Group controlId='activity'>
-                    <Form.Label>Activity</Form.Label>
-                    <Form.Control
-                      type='text'
-                      placeholder='Enter activity'
-                      value={activity}
-                      onChange={(e) => setActivity(e.target.value)}
-                    ></Form.Control>
-                  </Form.Group>
+                    >
+                      <option
+                        {...(location == 'rotorua' ? 'selected' : '')}
+                        value='rotorua'
+                      >
+                        Rotorua
+                      </option>
+                      <option
+                        {...(location == 'taupo' ? 'selected' : '')}
+                        value='taupo'
+                      >
+                        Taupo
+                      </option>
+                    </select>
+                  </div>
+                  {/* Attractions */}
+                  <div className='py-4'>
+                    <div>
+                      <label>Select Attraction</label>
+                    </div>
+                    <select
+                      value={attraction}
+                      onChange={(e) => setAttraction(e.target.value)}
+                    >
+                      {attractions.map((attraction) => (
+                        <option>{attraction.name}</option>
+                      ))}
+                    </select>
+                  </div>
 
                   <Form.Group controlId='summary'>
                     <Form.Label>Summary</Form.Label>

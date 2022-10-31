@@ -10,6 +10,7 @@ import { listSuperPasses } from '../actions/productActions'
 import Locations from './../components/Locations'
 import LeadSection from './../components/LeadSection'
 import LogoSlider from './../components/LogoSlider'
+import { listAttractions } from '../actions/attractionActions'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -17,8 +18,16 @@ const Home = () => {
   const superpassesList = useSelector((state) => state.superpassesList)
   const { loading, error, products } = superpassesList
 
+  const attractionsList = useSelector((state) => state.attractionsList)
+  const {
+    loading: loadingAttractions,
+    error: errorAttractions,
+    attractions
+  } = attractionsList
+
   useEffect(() => {
     dispatch(listSuperPasses())
+    dispatch(listAttractions())
   }, [dispatch])
 
   return (
@@ -61,7 +70,7 @@ const Home = () => {
         <Locations />
       </div>
       <div className='footer-slider pt-20'>
-        <LogoSlider />
+        <LogoSlider attractions={attractions} />
       </div>
     </>
   )

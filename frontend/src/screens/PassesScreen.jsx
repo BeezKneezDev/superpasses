@@ -143,7 +143,7 @@ const Passes = () => {
             <Locations />
           </div>
           <div className='footer-slider pt-20'>
-            <LogoSlider />
+            <LogoSlider attractions={attractions} />
           </div>
         </>
       )}
