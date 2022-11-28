@@ -10,9 +10,15 @@ import Locations from './../components/Locations'
 import LogoSlider from './../components/LogoSlider'
 import { Link } from 'react-router-dom'
 import LeadSection from './../components/LeadSection'
+import { useSelector } from 'react-redux'
+
+import { listAttractions } from '../actions/attractionActions'
 
 const Faqs = () => {
   const [open, setOpen] = useState(0)
+
+  const attractionsList = useSelector((state) => state.attractionsList)
+  const { attractions } = attractionsList
 
   const handleOpen = (value) => {
     setOpen(open === value ? 0 : value)
@@ -204,7 +210,7 @@ const Faqs = () => {
         <Locations />
       </div>
       <div className='footer-slider pt-20'>
-        <LogoSlider />
+        <LogoSlider attractions={attractions} />
       </div>
     </>
   )

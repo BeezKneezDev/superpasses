@@ -1,59 +1,60 @@
 import React from 'react'
+import { useRef, useEffect, useState, useLayoutEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { Row, Col, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { useRef, useEffect, useState, useMemo } from 'react'
-import { listAttractions } from './../actions/attractionActions'
+import { Row, Col, Button, Container } from 'react-bootstrap'
+import Message from '../components/Message'
+import Loader from '../components/Loader'
+import { listProducts } from '../actions/productActions'
 import Meta from '../components/Meta'
 import Card from '../components/Card'
+import { listAttractions } from './../actions/attractionActions'
 import Hero from '../components/Hero'
-import Loader from '../components/Loader'
-import Message from '../components/Message'
-import Carousel from './../components/Carousel'
 import Locations from './../components/Locations'
 import LogoSlider from './../components/LogoSlider'
 import LeadSection from '../components/LeadSection'
-import { listSuperPasses } from '../actions/productActions'
 
 const Passes = () => {
   const ref = useRef(null)
 
-  // superpasses
-  const superpassesList = useSelector((state) => state.superpassesList)
-  const {
-    loading: loadingSuperpasses,
-    error: errorSuperpasses,
-    products
-  } = superpassesList
-
   const { keyword } = useParams()
   const dispatch = useDispatch()
 
-  const [selectedActivity, setSelectedActivity] = useState()
-  const [ActivityList, setActivityList] = useState([])
-
+  const [activity, setActivity] = useState('')
+  const [listActivities, setListActivities] = useState([])
+  const [attraction, setAttraction] = useState('')
+  // if (!attraction) {
+  //   window.scrollTo(0, 0)
+  // }
   const attractionsList = useSelector((state) => state.attractionsList)
-  const { loading, error, attractions } = attractionsList
+  const {
+    loading: loadingAttractions,
+    error: errorAttractions,
+    attractions
+  } = attractionsList
+
+  const productsList = useSelector((state) => state.productsList)
+  const { loading, error, products } = productsList
 
   useEffect(() => {
-    dispatch(listAttractions())
-    setActivityList(attractions)
-    dispatch(listSuperPasses())
-  }, [])
+    dispatch(listProducts(keyword, attraction))
+    dispatch(listAttractions(activity))
+  }, [dispatch, keyword, activity, attraction])
 
-  const handleCategoryChange = (e) => {
+  console.log(listActivities)
+  const handleClick = (e) => {
     e.preventDefault(e)
-    setSelectedActivity(e.target.value)
+    setActivity(e.target.value)
+    //console.log(e.target.value)
   }
 
-  function getFilteredList() {
-    if (!selectedActivity) {
-      return ActivityList
-    }
-    return ActivityList.filter((item) => item.activity === selectedActivity)
+  const filterByAttraction = (e) => {
+    e.preventDefault(e)
+    setAttraction(e.target.value)
+    setTimeout('', 600)
+    ref.current?.scrollIntoView({ behavior: 'smooth' })
+    console.log(e.target.value)
   }
-
-  var filteredList = useMemo(getFilteredList, [selectedActivity, ActivityList])
 
   const activitiesList = [
     'adventure',
@@ -93,15 +94,10 @@ const Passes = () => {
                   'Donec sodales sagittis magna. Cras non dolor. Suspendisse non nisl sit amet velit hendrerit rutrum. Praesent ac massa at ligula laoreet iaculis. Etiam rhoncus.'
                 }
               />
-
-              <div className='-mt-24'>
-                <Carousel products={products} />
-              </div>
-
-              <Row className='px-10 mt-20'>
+              <Row className='px-10 mt-[-20px]'>
                 <div className='flex m-auto pb-4'>
                   <Button
-                    onClick={handleCategoryChange}
+                    onClick={handleClick}
                     variant='primary'
                     className='mx-2'
                   >
@@ -110,7 +106,7 @@ const Passes = () => {
 
                   {activitiesList.map((activity) => (
                     <Button
-                      onClick={handleCategoryChange}
+                      onClick={handleClick}
                       value={activity}
                       variant='primary'
                       className='mx-2'
@@ -121,7 +117,7 @@ const Passes = () => {
                 </div>
               </Row>
               <Row>
-                {filteredList.map((attraction) => (
+                {attractions.map((attraction) => (
                   <Col
                     key={attraction._id}
                     sm={12}
@@ -132,7 +128,7 @@ const Passes = () => {
                   >
                     <Card
                       attraction={attraction}
-                      filterByAttraction={handleCategoryChange}
+                      filterByAttraction={filterByAttraction}
                     />
                   </Col>
                 ))}
@@ -144,7 +140,7 @@ const Passes = () => {
             <Locations />
           </div>
           <div className='footer-slider pt-20'>
-            <LogoSlider attractions={ActivityList} />
+            <LogoSlider attractions={attractions} />
           </div>
         </>
       )}

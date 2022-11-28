@@ -30,15 +30,12 @@ import Contact from './screens/Contact'
 
 import Attraction from './screens/AttractionScreen'
 
-import Test from './screens/Test'
-
 const App = () => {
   return (
     <BrowserRouter>
       <Navbar />
       <main className=''>
         <Routes>
-          <Route path='/test' element={<Test />} />
           <Route exact path='/' element={<Home />} />
           <Route path='/frequently-asked-questions' element={<Faqs />} />
           <Route path='/contact' element={<Contact />} />
