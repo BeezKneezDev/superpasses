@@ -1,9 +1,20 @@
-import React from 'react'
+import { useEffect } from 'react'
 import AliceCarousel from 'react-alice-carousel'
 import 'react-alice-carousel/lib/alice-carousel.css'
 import { Link } from 'react-router-dom'
 
-const LogoSlider = ({ attractions }) => {
+import { useSelector, useDispatch } from 'react-redux'
+import { listAttractions } from './../actions/attractionActions'
+
+const LogoSlider = () => {
+  const dispatch = useDispatch()
+  const attractionsList = useSelector((state) => state.attractionsList)
+  const { attractions } = attractionsList
+
+  useEffect(() => {
+    dispatch(listAttractions())
+  }, [dispatch])
+
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
