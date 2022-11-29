@@ -20,26 +20,27 @@ const Passes = () => {
 
   // superpasses
   const superpassesList = useSelector((state) => state.superpassesList)
-  const {
-    loading: loadingSuperpasses,
-    error: errorSuperpasses,
-    products
-  } = superpassesList
+  const { products } = superpassesList
 
   const { keyword } = useParams()
   const dispatch = useDispatch()
 
   const [selectedActivity, setSelectedActivity] = useState()
-  const [ActivityList, setActivityList] = useState([])
+  const [attractionList, setAttractionList] = useState([])
 
+  // This is used for logo only
   const attractionsList = useSelector((state) => state.attractionsList)
-  const { loading, error, attractions } = attractionsList
+  const { loading, error } = attractionsList
 
   useEffect(() => {
-    dispatch(listAttractions())
-    setActivityList(attractions)
+    const fetchAttractions = async () => {
+      const response = await fetch('http://localhost:3000/api/attractions')
+      const attractionData = await response.json()
+      setAttractionList(attractionData)
+    }
+    fetchAttractions()
     dispatch(listSuperPasses())
-  }, [])
+  }, [dispatch])
 
   const handleCategoryChange = (e) => {
     e.preventDefault(e)
@@ -48,12 +49,15 @@ const Passes = () => {
 
   function getFilteredList() {
     if (!selectedActivity) {
-      return ActivityList
+      return attractionList
     }
-    return ActivityList.filter((item) => item.activity === selectedActivity)
+    return attractionList.filter((item) => item.activity === selectedActivity)
   }
 
-  var filteredList = useMemo(getFilteredList, [selectedActivity, ActivityList])
+  var filteredList = useMemo(getFilteredList, [
+    selectedActivity,
+    attractionList
+  ])
 
   const activitiesList = [
     'adventure',
@@ -144,7 +148,7 @@ const Passes = () => {
             <Locations />
           </div>
           <div className='footer-slider pt-20'>
-            <LogoSlider attractions={ActivityList} />
+            <LogoSlider attractions={attractionList} />
           </div>
         </>
       )}
