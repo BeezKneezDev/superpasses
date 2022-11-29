@@ -1,5 +1,5 @@
 import React from 'react'
-import { AiOutlinePhone, AiOutlineMail } from 'react-icons/ai'
+import { AiOutlineMail, AiFillFacebook } from 'react-icons/ai'
 import SearchBox from './SeachBox'
 
 const Topbar = () => {
@@ -10,19 +10,20 @@ const Topbar = () => {
           <div className='pr-4 pl-[275px]'>
             <a
               className='flex items-center text-white text-base'
-              href='tel:+64 22 304 8171'
+              href='mailto:res@rotoruatravel.co.nz'
             >
-              <AiOutlinePhone className='mr-2' /> +64 22 304 8171
+              <AiOutlineMail className='mr-2 ' />
+              res@rotoruatravel.co.nz
             </a>
           </div>
 
           <div className=''>
             <a
               className='flex items-center text-white text-base'
-              href='mailto:res@rotoruatravel.co.nz'
+              href='https://www.facebook.com/RotoruaSuperPasses/'
+              target={'blank'}
             >
-              <AiOutlineMail className='mr-2 ' />
-              res@rotoruatravel.co.nz
+              <AiFillFacebook className='mr-2' /> Visit our facebook
             </a>
           </div>
         </div>

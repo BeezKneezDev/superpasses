@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import Meta from '../components/Meta'
 import Loader from '../components/Loader'
 import Slider from './../components/Slider'
@@ -10,6 +9,8 @@ import { listSuperPasses } from '../actions/productActions'
 import Locations from './../components/Locations'
 import LeadSection from './../components/LeadSection'
 import LogoSlider from './../components/LogoSlider'
+import Button from '../components/Button'
+import Cover from './../components/Cover'
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -25,7 +26,7 @@ const Home = () => {
     <>
       <Meta />
       {/* this will be static needs updating */}
-      <Slider />
+      <Cover />
 
       {loading ? (
         <Loader />
@@ -33,21 +34,17 @@ const Home = () => {
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
-          <div className='px-10'>
-            <Carousel products={products} />
-          </div>
+          <Carousel className='px-10' products={products} />
 
-          <div className='text-center pt-20'>
-            <Link
-              to={'/passes'}
-              className=' hover:no-underline text-base uppercase bg-brand hover:bg-seconary text-white font-bold py-3 px-10 '
-            >
-              View All Passes
-            </Link>
-          </div>
+          <Button
+            className='text-center pt-20'
+            text='view all passes'
+            colour=''
+          />
         </>
       )}
 
+      {/* this is to be loaded from DB */}
       <LeadSection
         content="Super Passes offers you a one stop shop to see the best Rotorua tourist
         attractions and Taupo tourist attractions. We have a wide range of Taupo
@@ -57,12 +54,9 @@ const Home = () => {
         &amp; Rotorua, you need look no further than Super Passes."
       />
 
-      <div className='pb-[1px]'>
-        <Locations />
-      </div>
-      <div className='footer-slider pt-20'>
-        <LogoSlider />
-      </div>
+      <Locations className='pb-[1px]' />
+
+      <LogoSlider className='footer-slider pt-20' />
     </>
   )
 }
