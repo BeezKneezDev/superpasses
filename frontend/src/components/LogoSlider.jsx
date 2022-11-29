@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { listAttractions } from './../actions/attractionActions'
 
-const LogoSlider = () => {
+const LogoSlider = ({ className }) => {
   const dispatch = useDispatch()
   const attractionsList = useSelector((state) => state.attractionsList)
   const { attractions } = attractionsList
@@ -33,20 +33,22 @@ const LogoSlider = () => {
   ))
 
   return (
-    <AliceCarousel
-      mouseTracking
-      infinite={true}
-      autoHeight={true}
-      autoPlayInterval={3000}
-      animationDuration={800}
-      autoPlayStrategy={'none'}
-      items={items}
-      autoPlay={true}
-      responsive={responsive}
-      controlsStrategy='alternate'
-      disableButtonsControls={true}
-      disableDotsControls={true}
-    />
+    <div className={className}>
+      <AliceCarousel
+        mouseTracking
+        infinite={true}
+        autoHeight={true}
+        autoPlayInterval={3000}
+        animationDuration={800}
+        autoPlayStrategy={'none'}
+        items={items}
+        autoPlay={true}
+        responsive={responsive}
+        controlsStrategy='alternate'
+        disableButtonsControls={true}
+        disableDotsControls={true}
+      />
+    </div>
   )
 }
 

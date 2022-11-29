@@ -4,7 +4,7 @@ import 'react-alice-carousel/lib/alice-carousel.css'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
 
-const Carousel = ({ products }) => {
+const Carousel = ({ products, className }) => {
   const responsive = {
     0: { items: 1 },
     568: { items: 2 },
@@ -18,19 +18,21 @@ const Carousel = ({ products }) => {
     </div>
   ))
   return (
-    <AliceCarousel
-      mouseTracking
-      infinite={true}
-      autoHeight={true}
-      autoPlayInterval={3000}
-      animationDuration={800}
-      autoPlayStrategy={'default'}
-      items={items}
-      autoPlay={true}
-      responsive={responsive}
-      controlsStrategy='alternate'
-      disableButtonsControls={true}
-    />
+    <div className={className}>
+      <AliceCarousel
+        mouseTracking
+        infinite={true}
+        autoHeight={true}
+        autoPlayInterval={3000}
+        animationDuration={800}
+        autoPlayStrategy={'default'}
+        items={items}
+        autoPlay={true}
+        responsive={responsive}
+        controlsStrategy='alternate'
+        disableButtonsControls={true}
+      />
+    </div>
   )
 }
 

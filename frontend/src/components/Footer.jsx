@@ -2,7 +2,7 @@ import React from 'react'
 import { IconContext } from 'react-icons'
 import { BsMailbox2 } from 'react-icons/bs'
 import { HiMail } from 'react-icons/hi'
-import { FaPhone } from 'react-icons/fa'
+import { AiFillFacebook } from 'react-icons/ai'
 
 const Footer = () => {
   return (
@@ -158,16 +158,19 @@ const Footer = () => {
                     </IconContext.Provider>
                     res@rotoruatravel.co.nz
                   </p>
-                  <p class='flex items-center justify-center md:justify-start mb-3 text-base'>
+                  <a
+                    href='https://www.facebook.com/RotoruaSuperPasses/'
+                    class='flex items-center justify-center md:justify-start mb-3 text-base'
+                  >
                     <IconContext.Provider
                       value={{ size: '1.2em', className: 'mr-3' }}
                     >
                       <div>
-                        <FaPhone />
+                        <AiFillFacebook />
                       </div>
                     </IconContext.Provider>
-                    +64 22 304 8171
-                  </p>
+                    Visit our facebook
+                  </a>
                 </div>
               </div>
               <div class=''>

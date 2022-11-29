@@ -1,10 +1,10 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import WhiteButton from './WhiteButton'
 
-const Locations = () => {
+// Make this dynamic
+const Locations = ({ className }) => {
   return (
-    <>
+    <div className={className}>
       {/* location cards Rotorua */}
       <div className='flex h-[65vh] bg-seconary'>
         <div className='w-1/2 bg-center bg-cover flex card-zoom'>
@@ -37,14 +37,11 @@ const Locations = () => {
               destination. Home to Maori culture, the welcome from the
               indigenous people will make you feel part of the city.
             </p>
-            <div className='pt-10'>
-              <Link
-                to={'/rotorua'}
-                className='text-base hover:no-underline uppercase bg-[#fff] hover:bg-black text-brand hover:text-white font-bold py-3 px-10 '
-              >
-                View Rotorua's Top Passes
-              </Link>
-            </div>
+            <WhiteButton
+              text="View Rotorua's Top Passes"
+              to={'/rotorua'}
+              className='pt-12'
+            />
           </div>
         </div>
       </div>
@@ -82,14 +79,11 @@ const Locations = () => {
               </a>
               .
             </p>
-            <div className='pt-10'>
-              <Link
-                to={'/taupo'}
-                className='text-base hover:no-underline uppercase bg-[#fff] hover:bg-black text-brand hover:text-white font-bold py-3 px-10 '
-              >
-                View Taupo's Top Passes
-              </Link>
-            </div>
+            <WhiteButton
+              text="View Taupo's Top Passes"
+              to={'/taupo'}
+              className='pt-12'
+            />
           </div>
         </div>
         <div className='w-1/2 bg-center bg-cover flex card-zoom'>
@@ -101,7 +95,7 @@ const Locations = () => {
           ></div>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
